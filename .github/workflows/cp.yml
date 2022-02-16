@@ -54,7 +54,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: cpdir
-          key: ${{ runner.os }}-cp3
+          key: ${{ runner.os }}-cp4
 
 
 # ${{ hashFiles('/home/cpdir') }}
@@ -100,7 +100,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: cpdir
-          key: ${{ runner.os }}-cp3
+          key: ${{ runner.os }}-cp4
 
       - name: Is there any cp
         if: steps.cache-cp.outputs.cache-hit == 'true'
