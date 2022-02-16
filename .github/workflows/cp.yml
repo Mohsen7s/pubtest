@@ -65,7 +65,7 @@ jobs:
           readlink -f s.sh \
             && (docker run -it -d --privileged --name tbb ubuntu) \
             && (docker exec -i tbb bash -c "echo inside ubuntu0!") \
-            && (sleep 5; echo "first10try"; docker checkpoint create --leave-running=false $(docker ps -q) cp0; docker checkpoint ls tbb;)
+            && (sleep 5; echo "first10try"; docker checkpoint create --leave-running=false $(docker ps -q) cp0; docker checkpoint ls tbb;) \
             && du -h /var/lib/docker/containers/
 
 
