@@ -104,9 +104,8 @@ jobs:
       - name: Is there any cp
         if: steps.cache-cp.outputs.cache-hit == 'true'
         run: |
-          cd \
+          sudo du -h /var/lib/docker/containers/
           && (docker create -it --privileged --name tbb ubuntu) \
-          && du -h \
           && (docker start --checkpoint-dir /home/cpdir --checkpoint cp0 tbb) \
           && (docker exec -i tbb bash -c "echo inside ubuntu AFTER cp restore!")
       
