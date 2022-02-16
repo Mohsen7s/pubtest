@@ -48,6 +48,13 @@ jobs:
 #          docker exec -i tbb bash -c "(usermod --add-subuids 1000000-1099999 --add-subgids 1000000-1099999 root) && cat /etc/subuid && cat /etc/subgid && chmod 4755 /usr/bin/newuidmap && chmod 4755 /usr/bin/newgidmap && echo tried  && cd tor-browser-build && make release-windows-x86_64"
 
 
+      - name: Cache Primes
+        id: cache-cp
+        uses: actions/cache@v2
+        with:
+          path: /home/cpdir
+          key: ${{ runner.os }}-cp0
+
 
 # ${{ hashFiles('/home/cpdir') }}
 
@@ -58,12 +65,7 @@ jobs:
             && (docker exec -i tbb bash -c "echo inside ubuntu0!") \
             && (sleep 5; echo "first10try"; docker checkpoint create --leave-running=false --checkpoint-dir /home/cpdir $(docker ps -q) cp0; docker checkpoint ls tbb; sudo chmod -R 7777 /home/cpdir; du -h /home/cpdir)
 
-      - name: Cache Primes
-        id: cache-cp
-        uses: actions/cache@v2
-        with:
-          path: /home/cpdir
-          key: ${{ runner.os }}-cp0
+
 
 
   browser2:
