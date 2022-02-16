@@ -53,7 +53,7 @@ jobs:
         id: cache-cp
         uses: actions/cache@v2
         with:
-          path: /var/lib/docker/containers/**/checkpoints/
+          path: cpdir
           key: ${{ runner.os }}-cp2
 
 
@@ -63,10 +63,11 @@ jobs:
         shell: 'script -q -e -c "bash {0}"'       
         run: |
           
-          mkdir cpdirZ \
+          mkdir cpdir \
             && (docker run -it -d --privileged --name tbb ubuntu) \
             && (docker exec -i tbb bash -c "echo inside ubuntu0!") \
             && (sleep 5; echo "first10try"; docker checkpoint create --leave-running=false $(docker ps -q) cp0; docker checkpoint ls tbb; ) \
+            && cp /var/lib/docker/containers/**/checkpoints/cp0 cpdir
             && sudo du -h /var/lib/docker/containers/
             
 
@@ -101,7 +102,7 @@ jobs:
         id: cache-cp
         uses: actions/cache@v2
         with:
-          path: /var/lib/docker/containers/**/checkpoints/
+          path: cpdir
           key: ${{ runner.os }}-cp2
 
       - name: Is there any cp
@@ -109,6 +110,7 @@ jobs:
         run: |
           sudo du -h /var/lib/docker/containers/ \
           && (docker create -it --privileged --name tbb ubuntu) \
+          mv cpdir/cp0 /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=looper2)/checkpoints/
           && (docker start --checkpoint cp0 tbb) \
           && (docker exec -i tbb bash -c "echo inside ubuntu AFTER cp restore!")
       
