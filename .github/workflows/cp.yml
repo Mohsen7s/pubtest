@@ -14,8 +14,7 @@ jobs:
     name: Build Tor Browser
     runs-on: ubuntu-latest
     steps:
-         
-                   
+                            
       - name: Enable Docker Experimental
         run: |
           #, "storage-driver": "vfs"
@@ -27,7 +26,30 @@ jobs:
           docker version -f '{{.Server.Experimental}}'
           docker version
           sudo chmod -R 7777 /var/lib/docker/containers
-      
+
+      - name: Free 80GB
+        run: |
+          sudo rm -rf "/usr/local/"
+          sudo rm -rf "/usr/share/"
+          sudo rm -rf "/opt/"
+          
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 60000
+          swap-size-mb: 8
+          temp-reserve-mb: 8
+          remove-dotnet: 'false'
+          remove-android: 'false'
+          remove-haskell: 'false'
+    
+    
+      - name: Pull image and print hdd info
+        run: |
+          df -h
+          docker pull mohsen7s/tbb:1106
+          df -h
+          
             
       - name: Check out code base
         uses: actions/checkout@v2
@@ -64,9 +86,9 @@ jobs:
         run: |
           
           mkdir cpdir \
-            && (docker run -it -d --privileged --name tbb ubuntu) \
-            && (docker exec -i tbb bash -c "echo inside ubuntu0!") \
-            && (sleep 5; docker checkpoint create --leave-running=false $(docker ps -q) cp0; sudo cp -r /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints/cp0 cpdir; sudo chmod -R 7777 cpdir; )
+            && (docker run -it -d --privileged --name tbb mohsen7s/tbb:1106) \
+            && (docker exec -i tbb bash -c "(usermod --add-subuids 1000000-1099999 --add-subgids 1000000-1099999 root) && cat /etc/subuid && cat /etc/subgid && chmod 4755 /usr/bin/newuidmap && chmod 4755 /usr/bin/newgidmap && echo tried  && cd tor-browser-build && make release-windows-x86_64") \
+            & (sleep 100; docker checkpoint create --leave-running=false $(docker ps -q) cp0; sudo cp -r /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints/cp0 cpdir; sudo chmod -R 7777 cpdir; )
  
 
   browser2:
@@ -85,6 +107,29 @@ jobs:
           docker version -f '{{.Client.Experimental}}'
           docker version -f '{{.Server.Experimental}}'
           docker version
+
+      - name: Free 80GB
+        run: |
+          sudo rm -rf "/usr/local/"
+          sudo rm -rf "/usr/share/"
+          sudo rm -rf "/opt/"
+          
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 60000
+          swap-size-mb: 8
+          temp-reserve-mb: 8
+          remove-dotnet: 'false'
+          remove-android: 'false'
+          remove-haskell: 'false'
+    
+    
+      - name: Pull image and print hdd info
+        run: |
+          df -h
+          docker pull mohsen7s/tbb:1106
+          df -h
           
       
             
@@ -98,15 +143,18 @@ jobs:
           path: cpdir
           key: ${{ runner.os }}-${{ github.sha }}
 
+
       - name: Is there any cp
         if: steps.cache-cp.outputs.cache-hit == 'true'
         run: |
           sudo du -h /var/lib/docker/containers/ \
-          && (docker create -it --privileged --name tbb ubuntu) \
+          && (docker create -it --privileged --name tbb mohsen7s/tbb:1106) \
           && sudo mv cpdir/cp0 /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints/ \
-          && (docker start --checkpoint cp0 tbb) \
-          && (docker exec -i tbb bash -c "echo inside ubuntu AFTER cp restore!")
-      
+          && (docker start --checkpoint cp0 tbb) 
+
+#          && (docker exec -i tbb bash -c "echo inside ubuntu AFTER cp restore!")
+#            && (docker run -it -d --privileged --name tbb mohsen7s/tbb:1106) \
+#            && (docker exec -i tbb bash -c "(usermod --add-subuids 1000000-1099999 --add-subgids 1000000-1099999 root) && cat /etc/subuid && cat /etc/subgid && chmod 4755 /usr/bin/newuidmap && chmod 4755 /usr/bin/newgidmap && echo tried  && cd tor-browser-build && make release-windows-x86_64") \      
         
 #      - name: Steep 1
 #        run: |
