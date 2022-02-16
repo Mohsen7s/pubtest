@@ -52,8 +52,8 @@ jobs:
         id: cache-cp
         uses: actions/cache@v2
         with:
-          path: cpdir
-          key: ${{ runner.os }}-cp1
+          path: /var/lib/docker/containers/**/checkpoints/
+          key: ${{ runner.os }}-cp2
 
 
 # ${{ hashFiles('/home/cpdir') }}
@@ -65,7 +65,8 @@ jobs:
           mkdir cpdirZ \
             && (docker run -it -d --privileged --name tbb ubuntu) \
             && (docker exec -i tbb bash -c "echo inside ubuntu0!") \
-            && (sleep 5; echo "first10try"; docker checkpoint create --leave-running=false --checkpoint-dir ./cpdir/ $(docker ps -q) cp0; docker checkpoint ls tbb; )
+            && (sleep 5; echo "first10try"; docker checkpoint create --leave-running=false $(docker ps -q) cp0; docker checkpoint ls tbb; ) \
+            && sudo du -h /var/lib/docker/containers/
             
 
 #            && du -h /var/lib/docker/containers/
@@ -98,15 +99,15 @@ jobs:
         id: cache-cp
         uses: actions/cache@v2
         with:
-          path: cpdir
-          key: ${{ runner.os }}-cp1
+          path: /var/lib/docker/containers/**/checkpoints/
+          key: ${{ runner.os }}-cp2
 
       - name: Is there any cp
         if: steps.cache-cp.outputs.cache-hit == 'true'
         run: |
           sudo du -h /var/lib/docker/containers/ \
           && (docker create -it --privileged --name tbb ubuntu) \
-          && (docker start --checkpoint-dir /home/cpdir --checkpoint cp0 tbb) \
+          && (docker start --checkpoint cp0 tbb) \
           && (docker exec -i tbb bash -c "echo inside ubuntu AFTER cp restore!")
       
         
