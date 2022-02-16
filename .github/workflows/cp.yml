@@ -1,0 +1,66 @@
+name: Checkpoint Builder
+
+on:
+  push :
+    paths:
+        - '.github/workflows/checkpoint.yml'
+
+
+env:
+  DEBIAN_FRONTEND: noninteractive
+
+jobs:
+  browser:
+    name: Build Tor Browser
+    runs-on: ubuntu-latest
+    steps:
+         
+                   
+      - name: Enable Docker Experimental
+        run: |
+        
+          echo $'{\n  "experimental": true, "storage-driver": "vfs" \n}' | sudo tee /etc/docker/daemon.json
+          mkdir -p ~/.docker
+          echo $'{\n  "experimental": "enabled"\n}' | sudo tee ~/.docker/config.json
+          sudo service docker restart
+          docker version -f '{{.Client.Experimental}}'
+          docker version -f '{{.Server.Experimental}}'
+          docker version
+      
+            
+      - name: Check out code base
+        uses: actions/checkout@v2
+        
+      - name: Build Docker Image
+        run: |
+          #docker-compose stop docker_tbb
+          #docker-compose down -v docker_tbb
+          #docker image rm docker_tbb
+          #docker pause $(docker ps -q)           
+          #docker-compose build
+          #docker run finaltbb_tbb 
+          
+#          cd finaltbb
+#          (docker-compose run tbb) \
+#            & (sleep 100; echo "first10try"; sudo docker checkpoint create --leave-running=false $(docker ps -q) cp0;)
+            
+      - name: Check out code base
+        shell: 'script -q -e -c "bash {0}"'
+        run: |
+          (docker run -it -d --privileged --name tbb ubuntu) \
+            & (sleep 10; echo "first10try"; sudo docker checkpoint create --leave-running=false $(docker ps -q) cp0;)
+            
+      - name: Steep 1
+        run: |
+          (docker start --checkpoint cp0 tbb) \
+            & (sleep 60; echo "Steep 1 try" docker checkpoint create --leave-running=false $(docker ps -q) cp0)
+      
+      - name: Steep 2
+        run: |
+          (docker start --checkpoint cp0 tbb) \
+            & (sleep 60; echo "Steep 2 try" docker checkpoint create --leave-running=false $(docker ps -q) cp0)
+      
+      - name: Steep 3
+        run: |
+          (docker start --checkpoint cp0 tbb) \
+            & (sleep 60; echo "Steep 3 try" docker checkpoint create --leave-running=false $(docker ps -q) cp0)
