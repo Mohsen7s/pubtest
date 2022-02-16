@@ -52,7 +52,7 @@ jobs:
         id: cache-cp
         uses: actions/cache@v2
         with:
-          path: /home/cpdir
+          path: cpdir
           key: ${{ runner.os }}-cp0
 
 
@@ -93,7 +93,7 @@ jobs:
         id: cache-cp
         uses: actions/cache@v2
         with:
-          path: /home/cpdir
+          path: cpdir
           key: ${{ runner.os }}-cp0
 
       - name: Is there any cp
