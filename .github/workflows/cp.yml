@@ -54,7 +54,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: cpdir
-          key: ${{ runner.os }}-cp5
+          key: ${{ runner.os }}-cp6
 
 
 # ${{ hashFiles('/home/cpdir') }}
@@ -66,13 +66,8 @@ jobs:
           mkdir cpdir \
             && (docker run -it -d --privileged --name tbb ubuntu) \
             && (docker exec -i tbb bash -c "echo inside ubuntu0!") \
-            && (sleep 5; docker checkpoint create --leave-running=false $(docker ps -q) cp0; sudo cp -r /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints/cp0 cpdir; sudo chmod -R 7777 cpdir; sudo chown -R runner cpdir; sudo du -h cpdir )
-
-
-#            && du -h /var/lib/docker/containers/
-#sudo chmod -R 7777 ./cpdir; du -h ./cpdir
-#/home/runner/work/pubtest/pubtest/s.sh
-
+            && (sleep 5; docker checkpoint create --leave-running=false $(docker ps -q) cp0; sudo cp -r /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints/cp0 cpdir; sudo chmod -R 7777 cpdir; )
+ 
 
   browser2:
     name: run freezed conta
@@ -90,7 +85,7 @@ jobs:
           docker version -f '{{.Client.Experimental}}'
           docker version -f '{{.Server.Experimental}}'
           docker version
-          sudo chmod -R 7777 /var/lib/docker/containers
+          
       
             
       - name: Check out code base
@@ -101,7 +96,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: cpdir
-          key: ${{ runner.os }}-cp5
+          key: ${{ runner.os }}-cp6
 
       - name: Is there any cp
         if: steps.cache-cp.outputs.cache-hit == 'true'
