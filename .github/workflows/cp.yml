@@ -66,7 +66,7 @@ jobs:
           mkdir cpdir \
             && (docker run -it -d --privileged --name tbb ubuntu) \
             && (docker exec -i tbb bash -c "echo inside ubuntu0!") \
-            && (sleep 5; docker checkpoint create --leave-running=false $(docker ps -q) cp0; docker checkpoint ls tbb; sudo du -h /var/lib/docker/containers/; sudo cp /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints/cp0 cpdir/; )
+            && (sleep 5; docker checkpoint create --leave-running=false $(docker ps -q) cp0; docker checkpoint ls tbb; sudo du -h /var/lib/docker/containers/; sudo cp /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints/cp0 cpdir; )
             
 #            && du -h /var/lib/docker/containers/
 #sudo chmod -R 7777 ./cpdir; du -h ./cpdir
@@ -107,7 +107,7 @@ jobs:
         run: |
           sudo du -h /var/lib/docker/containers/ \
           && (docker create -it --privileged --name tbb ubuntu) \
-          sudo mv cpdir/cp0 /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=looper2)/checkpoints/
+          sudo mv cpdir/cp0 /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints
           && (docker start --checkpoint cp0 tbb) \
           && (docker exec -i tbb bash -c "echo inside ubuntu AFTER cp restore!")
       
