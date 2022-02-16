@@ -54,7 +54,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: cpdir
-          key: ${{ runner.os }}-cp44
+          key: ${{ runner.os }}-cp5
 
 
 # ${{ hashFiles('/home/cpdir') }}
@@ -101,14 +101,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: cpdir
-          key: ${{ runner.os }}-cp44
+          key: ${{ runner.os }}-cp5
 
       - name: Is there any cp
         if: steps.cache-cp.outputs.cache-hit == 'true'
         run: |
           sudo du -h /var/lib/docker/containers/ \
           && (docker create -it --privileged --name tbb ubuntu) \
-          sudo mv cpdir/cp0 /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints
+          && sudo mv cpdir/cp0 /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints/ \
           && (docker start --checkpoint cp0 tbb) \
           && (docker exec -i tbb bash -c "echo inside ubuntu AFTER cp restore!")
       
