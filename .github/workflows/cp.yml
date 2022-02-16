@@ -3,7 +3,7 @@ name: Checkpoint Builder
 on:
   push :
     paths:
-        - '.github/workflows/checkpoint.yml'
+        - '.github/workflows/cp.yml'
 
 
 env:
