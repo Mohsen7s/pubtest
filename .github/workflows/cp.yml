@@ -18,8 +18,8 @@ jobs:
                    
       - name: Enable Docker Experimental
         run: |
-        
-          echo $'{\n  "experimental": true, "storage-driver": "vfs" \n}' | sudo tee /etc/docker/daemon.json
+          #, "storage-driver": "vfs"
+          echo $'{\n  "experimental": true \n}' | sudo tee /etc/docker/daemon.json
           mkdir -p ~/.docker
           echo $'{\n  "experimental": "enabled"\n}' | sudo tee ~/.docker/config.json
           sudo service docker restart
