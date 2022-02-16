@@ -54,7 +54,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: cpdir
-          key: ${{ runner.os }}-cp6
+          key: ${{ runner.os }}-${{ github.sha }}
 
 
 # ${{ hashFiles('/home/cpdir') }}
@@ -96,7 +96,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: cpdir
-          key: ${{ runner.os }}-cp6
+          key: ${{ runner.os }}-${{ github.sha }}
 
       - name: Is there any cp
         if: steps.cache-cp.outputs.cache-hit == 'true'
