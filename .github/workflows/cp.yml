@@ -66,10 +66,8 @@ jobs:
           mkdir cpdir \
             && (docker run -it -d --privileged --name tbb ubuntu) \
             && (docker exec -i tbb bash -c "echo inside ubuntu0!") \
-            && (sleep 5; echo "first10try"; docker checkpoint create --leave-running=false $(docker ps -q) cp0; docker checkpoint ls tbb; sudo cp /var/lib/docker/containers/**/checkpoints/cp0 cpdir ) \
-            && sudo du -h /var/lib/docker/containers/
+            && (sleep 5; echo "first10try"; docker checkpoint create --leave-running=false $(docker ps -q) cp0; docker checkpoint ls tbb; sudo du -h /var/lib/docker/containers/; sudo cp /var/lib/docker/containers/**/checkpoints/cp0 cpdir )
             
-
 #            && du -h /var/lib/docker/containers/
 #sudo chmod -R 7777 ./cpdir; du -h ./cpdir
 #/home/runner/work/pubtest/pubtest/s.sh
