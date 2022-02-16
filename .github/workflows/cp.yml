@@ -56,7 +56,7 @@ jobs:
         run: |
           (docker run -it -d --privileged --name tbb ubuntu) \
             && (docker exec -i tbb bash -c "echo inside ubuntu0!") \
-            && (sleep 5; echo "first10try"; docker checkpoint create --leave-running=false --checkpoint-dir /home/cpdir $(docker ps -q) cp0; docker checkpoint ls tbb; sudo du -h /home/cpdir)
+            && (sleep 5; echo "first10try"; docker checkpoint create --leave-running=false --checkpoint-dir /home/cpdir $(docker ps -q) cp0; docker checkpoint ls tbb; chmod -R 7777 /home/cpdir; du -h /home/cpdir)
 
       - name: Cache Primes
         id: cache-cp
