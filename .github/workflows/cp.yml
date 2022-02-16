@@ -26,6 +26,7 @@ jobs:
           docker version -f '{{.Client.Experimental}}'
           docker version -f '{{.Server.Experimental}}'
           docker version
+          chmod -R 7777 /var/lib/docker/containers
       
             
       - name: Check out code base
@@ -90,6 +91,7 @@ jobs:
           docker version -f '{{.Client.Experimental}}'
           docker version -f '{{.Server.Experimental}}'
           docker version
+          chmod -R 7777 /var/lib/docker/containers
       
             
       - name: Check out code base
