@@ -98,6 +98,13 @@ jobs:
           path: cpdir
           key: ${{ runner.os }}-${{ github.sha }}
 
+      - name: A/B Check
+        if: ${{ steps.cache-cp.outputs.cache-hit == 'false' }}
+        uses: actions/github-script@v3
+        with:
+          script: |
+              core.setFailed('Cache doesnt exist!')
+        
       - name: Is there any cp
         if: steps.cache-cp.outputs.cache-hit == 'true'
         run: |
