@@ -112,7 +112,7 @@ jobs:
           && (docker create -it --privileged --name tbb ubuntu) \
           && sudo mv cpdir/cp0 /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints/ \
           && (docker start --checkpoint cp0 tbb) \
-          && sleep 5
+          && sleep 20
           
 #          && (docker exec -i tbb bash -c "echo inside ubuntu AFTER cp restore!")
       
