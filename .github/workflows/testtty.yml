@@ -49,7 +49,7 @@ jobs:
 #          docker exec -i tbb bash -c "(usermod --add-subuids 1000000-1099999 --add-subgids 1000000-1099999 root) && cat /etc/subuid && cat /etc/subgid && chmod 4755 /usr/bin/newuidmap && chmod 4755 /usr/bin/newgidmap && echo tried  && cd tor-browser-build && make release-windows-x86_64"
 
 
-      - name: Cache Primes
+      - name: Cache Checkpoint
         id: cache-cp
         uses: actions/cache@v2
         with:
@@ -91,25 +91,25 @@ jobs:
       - name: Check out code base
         uses: actions/checkout@v2
 
-      - name: Cache Primes
+      - name: Cache Checkpoint
         id: cache-cp
         uses: actions/cache@v2
         with:
           path: cpdir
           key: ${{ runner.os }}-${{ github.sha }}
 
-      - name: A/B Check
+      - name: Find Cache
         if: ${{ steps.cache-cp.outputs.cache-hit == 'false' }}
         uses: actions/github-script@v3
         with:
           script: |
               core.setFailed('Cache doesnt exist!')
         
-      - name: Is there any cp
+      - name: Execute container from checkpoint
         if: steps.cache-cp.outputs.cache-hit == 'true'
         run: |
           sudo du -h /var/lib/docker/containers/ \
-          && (docker create -it --privileged --name tbb ubuntu) \
+          && (docker create --privileged --name tbb ubuntu) \
           && sudo mv cpdir/cp0 /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints/ \
           && (docker start -ai --checkpoint cp0 tbb) \
           & (sleep 20; docker logs tbb; echo "end log")
