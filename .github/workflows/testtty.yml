@@ -66,7 +66,8 @@ jobs:
           
           
           sudo rm -fr /var/run/docker.pid
-          docker system prune --volumes -f && rm /var/lib/docker/volumes/metadata.db
+          sudo docker system prune --volumes -f
+          sudo rm =fr /var/lib/docker/volumes/metadata.db
           sudo dockerd --containerd /run/containerd/containerd.sock
           
           #sudo service docker start
