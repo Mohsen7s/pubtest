@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Setup Enviroment
         run: |
-           sudo rm -fr /var/run/docker.pid
+           
       
 #          sudo apt-get purge docker-ce docker-ce-cli containerd.io
 #          sudo rm -rf /var/lib/docker
@@ -50,6 +50,8 @@ jobs:
                    
       - name: Enable Docker Experimental
         run: |
+          sudo service docker stop
+
           sudo dockerd --containerd /run/containerd/containerd.sock
           #, "storage-driver": "vfs"
           echo $'{\n  "experimental": true \n}' | sudo tee /etc/docker/daemon.json
