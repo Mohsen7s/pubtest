@@ -60,10 +60,16 @@ jobs:
                    
       - name: Enable Docker Experimental
         run: |
-          sudo service docker stop
+          sudo systemctl stop docker
+          sudo systemctl stop docker.socket
+          #sudo service docker stop
 
           sudo dockerd --containerd /run/containerd/containerd.sock
-          sudo service docker start
+          #sudo service docker start
+          
+          sudo systemctl start docker
+          sudo systemctl start docker.socket
+          
           #, "storage-driver": "vfs"
           echo $'{\n  "experimental": true \n}' | sudo tee /etc/docker/daemon.json
           mkdir -p ~/.docker
