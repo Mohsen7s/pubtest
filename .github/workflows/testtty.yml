@@ -63,10 +63,11 @@ jobs:
           #sudo systemctl stop docker
           #sudo systemctl stop docker.socket
           #sudo service docker stop
-
-          sudo dockerd --containerd /run/containerd/containerd.sock
-          #sudo service docker start
           
+          sudo rm -fr /var/run/docker.pid
+          sudo dockerd --containerd /run/containerd/containerd.sock
+          
+          #sudo service docker start
           #sudo systemctl start docker
           #sudo systemctl start docker.socket
           
