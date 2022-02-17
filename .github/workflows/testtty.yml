@@ -60,20 +60,20 @@ jobs:
           DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock docker info || ls -la $XDG_RUNTIME_DIR
         
                    
-      - name: Enable Docker Experimental
-        run: |
-          #sudo service docker stop
-
-          #sudo dockerd --containerd /run/containerd/containerd.sock
-          #, "storage-driver": "vfs"
-          echo $'{\n  "experimental": true \n}' | sudo tee /etc/docker/daemon.json
-          mkdir -p ~/.docker
-          echo $'{\n  "experimental": "enabled"\n}' | sudo tee ~/.docker/config.json
-          sudo service docker restart
-          docker version -f '{{.Client.Experimental}}'
-          docker version -f '{{.Server.Experimental}}'
-          docker version
-          sudo chmod -R 7777 /var/lib/docker/containers
+#      - name: Enable Docker Experimental
+#        run: |
+#          #sudo service docker stop
+#
+#          #sudo dockerd --containerd /run/containerd/containerd.sock
+#          #, "storage-driver": "vfs"
+#          echo $'{\n  "experimental": true \n}' | sudo tee /etc/docker/daemon.json
+#          mkdir -p ~/.docker
+#          echo $'{\n  "experimental": "enabled"\n}' | sudo tee ~/.docker/config.json
+#          sudo service docker restart
+#          docker version -f '{{.Client.Experimental}}'
+#          docker version -f '{{.Server.Experimental}}'
+#          docker version
+#          sudo chmod -R 7777 /var/lib/docker/containers
       
             
       - name: Check out code base
@@ -81,6 +81,7 @@ jobs:
         
       - name: Build Docker Image
         run: |
+          docker version
           #docker-compose stop docker_tbb
           #docker-compose down -v docker_tbb
           #docker image rm docker_tbb
