@@ -1,0 +1,127 @@
+name: Checkpoint Builder
+
+on:
+  push :
+    paths:
+        - '.github/workflows/testtty.yml'
+
+
+env:
+  DEBIAN_FRONTEND: noninteractive
+
+jobs:
+  browser:
+    name: Build Tor Browser
+    runs-on: ubuntu-latest
+    steps:
+         
+                   
+      - name: Enable Docker Experimental
+        run: |
+          #, "storage-driver": "vfs"
+          echo $'{\n  "experimental": true \n}' | sudo tee /etc/docker/daemon.json
+          mkdir -p ~/.docker
+          echo $'{\n  "experimental": "enabled"\n}' | sudo tee ~/.docker/config.json
+          sudo service docker restart
+          docker version -f '{{.Client.Experimental}}'
+          docker version -f '{{.Server.Experimental}}'
+          docker version
+          sudo chmod -R 7777 /var/lib/docker/containers
+      
+            
+      - name: Check out code base
+        uses: actions/checkout@v2
+        
+      - name: Build Docker Image
+        run: |
+          #docker-compose stop docker_tbb
+          #docker-compose down -v docker_tbb
+          #docker image rm docker_tbb
+          #docker pause $(docker ps -q)           
+          #docker-compose build
+          #docker run finaltbb_tbb 
+          
+#          cd finaltbb
+#          (docker-compose run tbb) \
+#            & (sleep 100; echo "first10try"; sudo docker checkpoint create --leave-running=false $(docker ps -q) cp0;)
+#            
+#          docker run -it -d --privileged --name tbb mohsen7s/tbb:1106
+#          docker exec -i tbb bash -c "(usermod --add-subuids 1000000-1099999 --add-subgids 1000000-1099999 root) && cat /etc/subuid && cat /etc/subgid && chmod 4755 /usr/bin/newuidmap && chmod 4755 /usr/bin/newgidmap && echo tried  && cd tor-browser-build && make release-windows-x86_64"
+
+
+      - name: Cache Primes
+        id: cache-cp
+        uses: actions/cache@v2
+        with:
+          path: cpdir
+          key: ${{ runner.os }}-${{ github.sha }}
+
+
+# ${{ hashFiles('/home/cpdir') }}
+
+      - name: Check out code base
+        shell: 'script -q -e -c "bash {0}"'       
+        run: |
+          
+          mkdir cpdir \
+            && (docker run -it -d --privileged --name tbb ubuntu) \
+            && (docker exec -i tbb bash -c "echo inside ubuntu0!") \
+            && (sleep 5; docker checkpoint create --leave-running=false $(docker ps -q) cp0; sudo cp -r /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints/cp0 cpdir; sudo chmod -R 7777 cpdir; )
+ 
+
+  browser2:
+    name: run freezed conta
+    runs-on: ubuntu-latest
+    needs: browser
+    steps:
+
+      - name: Enable Docker Experimental
+        run: |
+          #, "storage-driver": "vfs"
+          echo $'{\n  "experimental": true \n}' | sudo tee /etc/docker/daemon.json
+          mkdir -p ~/.docker
+          echo $'{\n  "experimental": "enabled"\n}' | sudo tee ~/.docker/config.json
+          sudo service docker restart
+          docker version -f '{{.Client.Experimental}}'
+          docker version -f '{{.Server.Experimental}}'
+          docker version
+          
+      
+            
+      - name: Check out code base
+        uses: actions/checkout@v2
+
+      - name: Cache Primes
+        id: cache-cp
+        uses: actions/cache@v2
+        with:
+          path: cpdir
+          key: ${{ runner.os }}-${{ github.sha }}
+
+      - name: Is there any cp
+        if: steps.cache-cp.outputs.cache-hit == 'true'
+        run: |
+          sudo du -h /var/lib/docker/containers/ \
+          && (docker create -it --privileged --name tbb ubuntu) \
+          && sudo mv cpdir/cp0 /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints/ \
+          && (docker start --checkpoint cp0 tbb) \
+          && (docker exec -i tbb bash -c "echo inside ubuntu AFTER cp restore!")
+      
+        
+#      - name: Steep 1
+#        run: |
+#          (docker start --checkpoint cp0 tbb) \
+#            && (docker exec -i tbb bash -c "echo inside ubuntu1!") \
+#            && (sleep 60; echo "Steep 1 try" docker checkpoint create --leave-running=false $(docker ps -q) cp0)
+#      
+#      - name: Steep 2
+#        run: |
+#          (docker start --checkpoint cp0 tbb) \
+#            && (docker exec -i tbb bash -c "echo inside ubuntu2!") \
+#            && (sleep 60; echo "Steep 2 try" docker checkpoint create --leave-running=false $(docker ps -q) cp0)
+#      
+#      - name: Steep 3
+#        run: |
+#          (docker start --checkpoint cp0 tbb) \
+#            && (docker exec -i tbb bash -c "echo inside ubuntu3!") \
+#            && (sleep 60; echo "Steep 3 try" docker checkpoint create --leave-running=false $(docker ps -q) cp0)
