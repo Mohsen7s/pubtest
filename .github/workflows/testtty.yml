@@ -73,6 +73,7 @@ jobs:
           #sudo service docker start
           #sudo systemctl start docker
           #sudo systemctl start docker.socket
+          echo "hellloooo"
           
           #, "storage-driver": "vfs"
           echo $'{\n  "experimental": true \n}' | sudo tee /etc/docker/daemon.json
