@@ -17,7 +17,7 @@ jobs:
       - name: Setup Enviroment
         run: |
           curl -fsSL https://raw.githubusercontent.com/ratulb/k8s-easy-install/docker/install-docker.sh -o install-docker.sh
-          sudo sh ./install-docker.sh
+          ./install-docker.sh
           
 
 
