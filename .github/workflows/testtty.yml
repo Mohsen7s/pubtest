@@ -107,6 +107,7 @@ jobs:
         
       - name: Execute container from checkpoint
         if: steps.cache-cp.outputs.cache-hit == 'true'
+        shell: 'script -q -e -c "bash {0}"'      
         run: |
           sudo du -h /var/lib/docker/containers/ \
           && (docker create -it --privileged --name tbb ubuntu) \
