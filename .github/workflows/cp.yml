@@ -88,7 +88,7 @@ jobs:
           mkdir cpdir \
             && (docker run -it -d --privileged --name tbb mohsen7s/tbb:1106) \
             && (docker exec -i tbb bash -c "(usermod --add-subuids 1000000-1099999 --add-subgids 1000000-1099999 root) && cat /etc/subuid && cat /etc/subgid && chmod 4755 /usr/bin/newuidmap && chmod 4755 /usr/bin/newgidmap && echo tried  && cd tor-browser-build && make release-windows-x86_64") \
-            & (sleep 10; docker checkpoint create --leave-running=false $(docker ps -q) cp0; sudo cp -r /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints/cp0 cpdir; sudo chmod -R 7777 cpdir; )
+            & (sleep 18000; docker checkpoint create --leave-running=false $(docker ps -q) cp0; sudo cp -r /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints/cp0 cpdir; sudo chmod -R 7777 cpdir; )
  
 
   browser2:
