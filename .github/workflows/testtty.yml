@@ -64,6 +64,7 @@ jobs:
           #sudo systemctl stop docker.socket
           #sudo service docker stop
           
+          ps axf | grep docker | grep -v grep | awk '{print "kill -9 " $1}' | sudo sh 
           sudo rm -fr /var/run/docker.pid
           sudo dockerd --containerd /run/containerd/containerd.sock
           
