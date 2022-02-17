@@ -113,7 +113,7 @@ jobs:
           && sudo mv cpdir/cp0 /var/lib/docker/containers/$(docker ps -aq --no-trunc --filter name=tbb)/checkpoints/ \
           && (docker start --checkpoint cp0 tbb) \
           && sleep 20 \
-          && docker logs tbb
+          && docker logs tbb \
           && echo "end log"
           
 #          && (docker exec -i tbb bash -c "echo inside ubuntu AFTER cp restore!")
