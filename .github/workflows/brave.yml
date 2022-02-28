@@ -24,9 +24,9 @@ jobs:
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
-          root-reserve-mb: 3000
-          swap-size-mb: 64
-          temp-reserve-mb: 64
+          root-reserve-mb: 128
+          swap-size-mb: 8
+          temp-reserve-mb: 8
           remove-dotnet: 'true'
           remove-android: 'true'
           remove-haskell: 'true'
@@ -41,4 +41,4 @@ jobs:
           cd brave-browser
           npm install
           npm run init -- --target_os=android --target_arch=arm
-          npm run build -- --target_os=android --target_arch=arm
+          #npm run build -- --target_os=android --target_arch=arm
