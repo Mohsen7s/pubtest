@@ -33,10 +33,10 @@ jobs:
       
       - name: Build brave
         run: |
-          #curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-          #sudo apt update
-          #sudo apt install nodejs
-          #echo "Brave Point"
+          curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+          sudo apt update
+          sudo apt install nodejs
+          echo "Brave Point"
           git clone https://github.com/brave/brave-browser.git
           cd brave-browser
           npm install
