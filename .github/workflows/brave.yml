@@ -15,16 +15,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
                             
-      - name: Free 80GB
-        run: |
-          sudo rm -rf "/usr/local/"
-          sudo rm -rf "/usr/share/"
+#      - name: Free 80GB
+#        run: |
+#          sudo rm -rf "/usr/local/"
+#          sudo rm -rf "/usr/share/"
 #          sudo rm -rf "/opt/"
           
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
-          root-reserve-mb: 512
+          root-reserve-mb: 128
           swap-size-mb: 128
           temp-reserve-mb: 128
           remove-dotnet: 'true'
