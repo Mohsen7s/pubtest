@@ -33,7 +33,7 @@ jobs:
       
       - name: Free 80GB
         run: |
-          git clone git@github.com:brave/brave-browser.git
+          git clone https://github.com/brave/brave-browser.git
           cd brave-browser
           npm install
           npm run init -- --target_os=android --target_arch=arm
