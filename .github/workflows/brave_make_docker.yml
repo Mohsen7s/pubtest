@@ -54,8 +54,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: mohsen7s/brave:1106
-          file: finaltbb/Dockerfile
+          tags: mohsen7s/brave:99
+          file: brave/Dockerfile
 #          outputs: type=docker,dest=./dock_torimage.tar
           
 
