@@ -56,6 +56,4 @@ jobs:
           tags: mohsen7s/brave:99
           file: brave/Dockerfile
 #          outputs: type=docker,dest=./dock_torimage.tar
-          
-
-   #       sudo find /home -type f -exec du --threshold=100000000 -h -a  {} +
+ 
