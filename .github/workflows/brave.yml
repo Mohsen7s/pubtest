@@ -28,8 +28,8 @@ jobs:
           swap-size-mb: 8
           temp-reserve-mb: 8
           remove-dotnet: 'true'
-          remove-android: 'true'
-          remove-haskell: 'true'
+          remove-android: 'false'
+          remove-haskell: 'false'
       
       - name: Build brave
         run: |
