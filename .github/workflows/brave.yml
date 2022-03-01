@@ -43,5 +43,5 @@ jobs:
           git clone https://github.com/brave/brave-browser.git
           cd brave-browser
           npm install
-          npm run init -- --target_os=android --target_arch=arm
-          #npm run build -- --target_os=android --target_arch=arm
+          #npm run init -- --target_os=android --target_arch=arm
+          npm run build -- --target_os=android --target_arch=arm
