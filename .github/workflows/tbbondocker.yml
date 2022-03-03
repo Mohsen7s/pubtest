@@ -42,7 +42,7 @@ jobs:
         shell: 'script -q -e -c "bash {0}"'
         run: |
           docker run -it -d --privileged --name tbb mohsen7s/tbb:1106
-          docker exec -i tbb bash -c "cd tor-browser-build && make cargo_vendor-cbindgen && make cargo_vendor-lucetc && make cargo_vendor-uniffi-rs && make cargo_vendor-cbindgen-android && make cargo_vendor-application-services && du out/container-image/* -h && echo wintoolchain && make list_toolchain_updates-firefox-windows && du out/container-image/* -h"
+          docker exec -i tbb bash -c "cd tor-browser-build &&  ./rbm/rbm build tor --target release --target torbrowser-windows-x86_64 && du out/container-image/* -h && echo wintoolchain "
           
           
  
