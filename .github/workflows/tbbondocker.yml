@@ -42,7 +42,7 @@ jobs:
         shell: 'script -q -e -c "bash {0}"'
         run: |
           docker run -it -d --privileged --name tbb mohsen7s/tbb:1106
-          docker exec -i tbb bash -c "cat /etc/subuid && cat /etc/subgid && chmod 4755 /usr/bin/newuidmap && chmod 4755 /usr/bin/newgidmap && echo tried  && cd tor-browser-build && make get_gradle_dependencies_list-fenix && echo 'make cargo_vendor-cbindgen' && make cargo_vendor-cbindgen && echo 'make cargo_vendor-lucetc' && make cargo_vendor-lucetc && echo 'make cargo_vendor-uniffi-rs' && make cargo_vendor-uniffi-rs && echo 'make cargo_vendor-cbindgen-android' && make cargo_vendor-cbindgen-android && echo 'make make cargo_vendor-cbindgen' && make cargo_vendor-application-services"
+          docker exec -i tbb bash -c "cat /etc/subuid && cat /etc/subgid && chmod 4755 /usr/bin/newuidmap && chmod 4755 /usr/bin/newgidmap && echo tried  && cd tor-browser-build && make list_toolchain_updates-firefox-windows && echo 'make cargo_vendor-cbindgen' && make cargo_vendor-cbindgen && echo 'make cargo_vendor-lucetc' && make cargo_vendor-lucetc && echo 'make cargo_vendor-uniffi-rs' && make cargo_vendor-uniffi-rs && echo 'make cargo_vendor-cbindgen-android' && make cargo_vendor-cbindgen-android && echo 'make make cargo_vendor-cbindgen' && make cargo_vendor-application-services"
           
           
  
