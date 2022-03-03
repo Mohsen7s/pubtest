@@ -4,7 +4,7 @@ LABEL version="0.1"
 LABEL description="This help you build tor with single command on any enviroment"
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
-RUN apt install -y wget git build-essential nodejs
+RUN apt install -y wget git build-essential
 RUN apt install -y build-essential libgnome-keyring-dev python-setuptools npm
 RUN apt install -y libyaml-libyaml-perl libtemplate-perl libdatetime-perl \
                    libio-handle-util-perl libio-all-perl \
@@ -13,7 +13,9 @@ RUN apt install -y libyaml-libyaml-perl libtemplate-perl libdatetime-perl \
                    libdigest-sha-perl libdata-uuid-perl libdata-dump-perl \
                    libfile-copy-recursive-perl libfile-slurp-perl git \
                    uidmap
-
+RUN curl -sL https://deb.nodesource.com/setup_17.x -o nodesource_setup.sh
+RUN bash nodesource_setup.sh
+RUN apt install nodejs
 RUN rm -rf /var/lib/apt/lists/* 
 #RUN sed -ie 's/GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX="systemd.legacy_systemd_cgroup_controller=1 "/' /etc/default/grub
 #RUN sed -ie 's/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="systemd.legacy_systemd_cgroup_controller=1 "/' /etc/default/grub
