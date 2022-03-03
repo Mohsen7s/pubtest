@@ -4,7 +4,7 @@ LABEL version="0.1"
 LABEL description="This help you build tor with single command on any enviroment"
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
-RUN apt install -y wget git build-essential
+RUN apt install -y wget git build-essential curl 
 RUN apt install -y build-essential libgnome-keyring-dev python-setuptools npm
 RUN apt install -y libyaml-libyaml-perl libtemplate-perl libdatetime-perl \
                    libio-handle-util-perl libio-all-perl \
