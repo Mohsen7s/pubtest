@@ -14,8 +14,6 @@ jobs:
     name: Build Tor Browser
     runs-on: ubuntu-18.04
     steps:
-
-       
       - name: Free 80GB
         run: |
           sudo rm -rf "/usr/local/"
