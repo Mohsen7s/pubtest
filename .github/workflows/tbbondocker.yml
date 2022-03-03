@@ -42,8 +42,17 @@ jobs:
         shell: 'script -q -e -c "bash {0}"'
         run: |
           docker run -it -d --privileged --name tbb mohsen7s/tbb:1106
-          docker exec -i tbb bash -c "cd tor-browser-build &&  make get_gradle_dependencies_list-android-components && du out/container-image/* -h && echo wintoolchain "
+          docker exec -i tbb bash -c "cd tor-browser-build &&  \
+          ./rbm/rbm build rust --target release --target torbrowser-windows-x86_64 && du out/container-image/* -h && \
+          ./rbm/rbm build cbindgen --target release --target torbrowser-windows-x86_64 && du out/container-image/* -h && \
+          ./rbm/rbm build lucetc --target release --target torbrowser-windows-x86_64 && du out/container-image/* -h && \
+          ./rbm/rbm build node --target release --target torbrowser-windows-x86_64 && du out/container-image/* -h && \
+          ./rbm/rbm build nasm --target release --target torbrowser-windows-x86_64 && du out/container-image/* -h && \
+          ./rbm/rbm build python --target release --target torbrowser-windows-x86_64 && du out/container-image/* -h && \    
+          ./rbm/rbm build clang --target release --target torbrowser-windows-x86_64 && du out/container-image/* -h && \
+          ./rbm/rbm build tor-launcher --target release --target torbrowser-windows-x86_64 && du out/container-image/* -h"
+
+
+#          docker exec -i tbb bash -c "cd tor-browser-build &&  make get_gradle_dependencies_list-android-components && du out/container-image/* -h && echo wintoolchain "
           
-          
- 
-#          docker exec -i tbb bash -c "cd tor-browser-build &&  ./rbm/rbm build tor --target release --target torbrowser-android-aarch64 && du out/container-image/* -h && echo wintoolchain "
+      
