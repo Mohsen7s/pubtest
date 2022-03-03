@@ -38,4 +38,5 @@ RUN git config --global http.postBuffer 524288000 \
 RUN git clone https://github.com/brave/brave-browser.git \
     && cd brave-browser \
     && npm install \
-    && npm run init -- --target_os=android --target_arch=arm
+    && npm run init
+
