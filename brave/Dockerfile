@@ -15,7 +15,7 @@ RUN apt install -y libyaml-libyaml-perl libtemplate-perl libdatetime-perl \
                    uidmap
 RUN curl -sL https://deb.nodesource.com/setup_17.x -o nodesource_setup.sh
 RUN bash nodesource_setup.sh
-RUN apt install nodejs
+RUN apt install -y nodejs
 RUN rm -rf /var/lib/apt/lists/* 
 #RUN sed -ie 's/GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX="systemd.legacy_systemd_cgroup_controller=1 "/' /etc/default/grub
 #RUN sed -ie 's/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="systemd.legacy_systemd_cgroup_controller=1 "/' /etc/default/grub
