@@ -1,4 +1,4 @@
-name: Builder
+name: Docker Image for brave
 
 on:
   push :
@@ -11,7 +11,7 @@ env:
 
 jobs:
   browser:
-    name: Build Tor Browser
+    name: Make Docker Image for brave
     runs-on: ubuntu-18.04
     steps:
       - name: Free 80GB
