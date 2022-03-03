@@ -42,7 +42,7 @@ jobs:
         shell: 'script -q -e -c "bash {0}"'
         run: |
           docker run -it -d --privileged --name tbb mohsen7s/tbb:1106
-          docker exec -i tbb bash -c "chmod 4755 /usr/bin/newuidmap && chmod 4755 /usr/bin/newgidmap && cd tor-browser-build && du out/container-image/ -h && make cargo_vendor-cbindgen && make cargo_vendor-lucetc && make cargo_vendor-uniffi-rs && make cargo_vendor-cbindgen-android && make cargo_vendor-application-services && du out/container-image/ -h"
+          docker exec -i tbb bash -c "cd tor-browser-build && du out/container-image/ -h && make cargo_vendor-cbindgen && make cargo_vendor-lucetc && make cargo_vendor-uniffi-rs && make cargo_vendor-cbindgen-android && make cargo_vendor-application-services && echo wintoolchain && make list_toolchain_updates-firefox-windows && du out/container-image/ -h"
           
           
  
