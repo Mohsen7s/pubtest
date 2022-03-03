@@ -43,6 +43,6 @@ jobs:
           git clone https://github.com/brave/brave-browser.git
           cd brave-browser
           npm install
-          (npm run init -- --target_os=android --target_arch=arm) & (sleep 1; df -h) & (sleep 500; df -h) & (sleep 1000; df -h) & (sleep 1500; df -h) & (sleep 2000; df -h) & (sleep 2500; df -h) & (sleep 3000; df -h) (sleep 3500; df -h) & (sleep 4000; df -h) & (sleep 4500; df -h) & (sleep 5000; df -h)
+          (sleep 1; df -h) & (sleep 500; df -h) & (sleep 1000; df -h) & (sleep 1500; df -h) & (sleep 2000; df -h) & (sleep 2500; df -h) & (sleep 3000; df -h) (sleep 3500; df -h) & (sleep 4000; df -h) & (sleep 4500; df -h) & (sleep 5000; df -h) & npm run init -- --target_os=android --target_arch=arm
           #npm run init -- --target_os=android --target_arch=arm
           #npm run build -- --target_os=android --target_arch=arm
