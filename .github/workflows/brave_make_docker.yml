@@ -53,9 +53,8 @@ jobs:
                    
       - name: Enable Docker Experimental
         run: |
-          mkdir /home/runner/docdoc1
-          mkdir /home/runner/docdoc2
-          echo $'{\n  "data-root": "/home/runner/docdoc1", "graph": "/home/runner/docdoc2"  \n}' | sudo tee /etc/docker/daemon.json
+          mkdir /home/runner/docdoc
+          echo $'{\n  "data-root": "/home/runner/docdoc", "graph": "/home/runner/docdoc"  \n}' | sudo tee /etc/docker/daemon.json
           sudo service docker restart
           
       - name: Build with Docker
