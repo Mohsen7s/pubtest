@@ -115,6 +115,8 @@ jobs:
           allow: |
             security.insecure
           file: /home/runner/work/pubtest/pubtest/Dockerfile
+          build-args: |
+            DEBIAN_FRONTEND=noninteractive
+            
 #          outputs: type=docker,dest=./dock_torimage.tar
-
-   #       sudo find /home -type f -exec du --threshold=100000000 -h -a  {} +
+#       sudo find /home -type f -exec du --threshold=100000000 -h -a  {} +
