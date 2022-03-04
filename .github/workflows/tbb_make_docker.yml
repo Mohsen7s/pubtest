@@ -47,7 +47,7 @@ jobs:
 
       - name: Get rid of repository checkout
         run: |
-          cat >> /home/runner/work/pubtest/pubtest/Dockerfile << EOF
+          cat >> Dockerfile << EOF
           FROM ubuntu:22.04
           LABEL maintainer="some@fag.com"
           LABEL version="0.1"
@@ -108,6 +108,7 @@ jobs:
         with:
           push: true
           tags: mohsen7s/tbb:fetchcargo1106
+          context: .
           allow: |
             security.insecure
           file: /home/runner/work/pubtest/pubtest/Dockerfile
