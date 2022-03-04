@@ -23,8 +23,8 @@ jobs:
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
-          root-reserve-mb: 69000
-          swap-size-mb: 13500
+          root-reserve-mb: 1000
+          swap-size-mb: 8
           temp-reserve-mb: 8
           remove-dotnet: 'false'
           remove-android: 'false'
@@ -45,6 +45,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Change docker path
+        run: |
+          docker -d --graph="/home" 
 
       - name: Build with Docker
         uses: docker/build-push-action@v2
