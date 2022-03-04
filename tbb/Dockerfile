@@ -41,7 +41,13 @@ RUN git clone https://gitlab.torproject.org/tpo/applications/tor-browser-build.g
     && chmod 777 container \
     && cd .. \
     && make fetch \
-    && make get_gradle_dependencies_list-fenix
+    && make cargo_vendor-application-services \
+    && make cargo_vendor-cbindgen-android \
+    && make cargo_vendor-cbindgen \
+    && make cargo_vendor-lucetc \
+    && make cargo_vendor-uniffi-rs \
+    && make get_gradle_dependencies_list-application-services
+    
 
     
 #./rbm/rbm build release --target release --target torbrowser-windows-x86_64
