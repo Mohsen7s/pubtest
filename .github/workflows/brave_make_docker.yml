@@ -53,11 +53,10 @@ jobs:
                    
       - name: Enable Docker Experimental
         run: |
-          docker version
-          mkdir /home/runner/docdoc
-          echo $'{\n  "data-root": "/home/runner/docdoc" \n}' | sudo tee /etc/docker/daemon.json
+          mkdir /home/runner/docdoc1
+          mkdir /home/runner/docdoc2
+          echo $'{\n  "data-root": "/home/runner/docdoc1", "graph": "/home/runner/docdoc2"  \n}' | sudo tee /etc/docker/daemon.json
           sudo service docker restart
-          docker version
           
       - name: Build with Docker
         uses: docker/build-push-action@v2
