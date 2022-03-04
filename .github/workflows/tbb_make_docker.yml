@@ -47,7 +47,7 @@ jobs:
 
       - name: Get rid of repository checkout
         run: |
-          cat >> /home/runner/Dockerfile << EOF
+          cat >> /home/runner/work/pubtest/pubtest/Dockerfile << EOF
           FROM ubuntu:22.04
           LABEL maintainer="some@fag.com"
           LABEL version="0.1"
@@ -110,7 +110,7 @@ jobs:
           tags: mohsen7s/tbb:fetchcargo1106
           allow: |
             security.insecure
-          file: /home/runner/Dockerfile
+          file: /home/runner/work/pubtest/pubtest/Dockerfile
 #          outputs: type=docker,dest=./dock_torimage.tar
 
    #       sudo find /home -type f -exec du --threshold=100000000 -h -a  {} +
