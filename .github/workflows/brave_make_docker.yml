@@ -46,10 +46,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Change docker path
-        run: |
-          sudo docker -d --graph="/home" 
-
+#      - name: Change docker path
+#        run: |
+#          sudo docker -d --graph="/home" 
+#
                    
       - name: Enable Docker Experimental
         run: |
