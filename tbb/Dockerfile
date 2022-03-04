@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 LABEL maintainer="some@fag.com"
 LABEL version="0.1"
 LABEL description="This help you build tor with single command on any enviroment, keep in mind 22 is in alpha"
