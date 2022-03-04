@@ -97,7 +97,8 @@ jobs:
           #./rbm/rbm build release --target release --target torbrowser-windows-x86_64
           #make release-windows-x86_64'
           #ENTRYPOINT ["/usr/bin/bash", "/home/builder.sh"]
-
+          EOF
+          
       - name: Build with Docker
         uses: docker/build-push-action@v2
         with:
