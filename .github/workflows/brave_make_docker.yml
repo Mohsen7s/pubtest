@@ -16,8 +16,6 @@ jobs:
     steps:
       - name: Free 80GB
         run: |
-          cd
-          pwd
           sudo rm -rf "/usr/local/"
           sudo rm -rf "/usr/share/"
           sudo rm -rf "/opt/"
@@ -25,7 +23,7 @@ jobs:
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
-          root-reserve-mb: 1000
+          root-reserve-mb: 8
           swap-size-mb: 8
           temp-reserve-mb: 8
           remove-dotnet: 'false'
