@@ -42,7 +42,7 @@ jobs:
         shell: 'script -q -e -c "bash {0}"'
         run: |
           docker run -it -d --privileged --name tbb mohsen7s/tbb:1106
-          docker exec -i tbb bash -c "cd tor-browser-build &&  make get_gradle_dependencies_list-application-services && du out/container-image/* -h && echo wintoolchain "
+          docker exec -i tbb bash -c "cd tor-browser-build &&  make get_gradle_dependencies_list-android-components && du out/container-image/* -h && echo wintoolchain "
 
 
 #          docker exec -i tbb bash -c "cd tor-browser-build &&  \
