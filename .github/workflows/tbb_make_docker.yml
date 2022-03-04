@@ -56,6 +56,5 @@ jobs:
           tags: mohsen7s/tbb:fetchcargo1106
           file: tbb/Dockerfile
 #          outputs: type=docker,dest=./dock_torimage.tar
-          
 
    #       sudo find /home -type f -exec du --threshold=100000000 -h -a  {} +
