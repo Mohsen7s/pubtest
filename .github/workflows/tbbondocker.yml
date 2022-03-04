@@ -24,8 +24,8 @@ jobs:
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
-          root-reserve-mb: 60000
-          swap-size-mb: 8
+          root-reserve-mb: 69000
+          swap-size-mb: 10240
           temp-reserve-mb: 8
           remove-dotnet: 'false'
           remove-android: 'false'
@@ -42,7 +42,7 @@ jobs:
         shell: 'script -q -e -c "bash {0}"'
         run: |
           docker run -it -d --privileged --name tbb mohsen7s/tbb:1106
-          docker exec -i tbb bash -c "cd tor-browser-build &&  make nightly-src && du out/container-image/* -h && echo wintoolchain "
+          docker exec -i tbb bash -c "cd tor-browser-build &&  make get_gradle_dependencies_list-fenix && du out/container-image/* -h && echo wintoolchain "
 
 
 #          docker exec -i tbb bash -c "cd tor-browser-build &&  \
