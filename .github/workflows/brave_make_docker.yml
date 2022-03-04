@@ -56,7 +56,8 @@ jobs:
       - name: Enable Docker Experimental
         run: |
           docker version
-          echo $'{\n  "data-root": "/home" \n}' | sudo tee /etc/docker/daemon.json
+          mkdir /home/runner/docdoc
+          echo $'{\n  "data-root": "/home/runner/docdoc" \n}' | sudo tee /etc/docker/daemon.json
           sudo service docker restart
           docker version
           
