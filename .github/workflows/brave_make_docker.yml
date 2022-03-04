@@ -50,6 +50,14 @@ jobs:
         run: |
           sudo docker -d --graph="/home" 
 
+                   
+      - name: Enable Docker Experimental
+        run: |
+          docker version
+          echo $'{\n  "data-root": "/home" \n}' | sudo tee /etc/docker/daemon.json
+          sudo service docker restart
+          docker version
+          
       - name: Build with Docker
         uses: docker/build-push-action@v2
         with:
