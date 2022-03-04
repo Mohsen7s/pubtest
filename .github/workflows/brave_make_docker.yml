@@ -48,7 +48,7 @@ jobs:
 
       - name: Change docker path
         run: |
-          docker -d --graph="/home" 
+          sudo docker -d --graph="/home" 
 
       - name: Build with Docker
         uses: docker/build-push-action@v2
