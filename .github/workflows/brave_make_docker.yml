@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Free 80GB
         run: |
+          cd
+          pwd
           sudo rm -rf "/usr/local/"
           sudo rm -rf "/usr/share/"
           sudo rm -rf "/opt/"
