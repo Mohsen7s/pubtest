@@ -92,12 +92,12 @@ jobs:
               && chmod 777 container \
               && cd .. \
               && make fetch \
-              && make cargo_vendor-application-services \
-              && make cargo_vendor-cbindgen-android \
-              && make cargo_vendor-cbindgen \
-              && make cargo_vendor-lucetc \
-              && make cargo_vendor-uniffi-rs \
-              && make get_gradle_dependencies_list-application-services
+              && script -e -c "make cargo_vendor-application-services" \
+              && script -e -c "make cargo_vendor-cbindgen-android" \
+              && script -e -c "make cargo_vendor-cbindgen" \
+              && script -e -c "make cargo_vendor-lucetc" \
+              && script -e -c "make cargo_vendor-uniffi-rs" \
+              && script -e -c "make get_gradle_dependencies_list-application-services"
           #./rbm/rbm build release --target release --target torbrowser-windows-x86_64
           #make release-windows-x86_64'
           #ENTRYPOINT ["/usr/bin/bash", "/home/builder.sh"]
