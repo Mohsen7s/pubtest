@@ -102,12 +102,12 @@ jobs:
 #        run: |
 #          DOCKER_BUILDKIT=1 docker buildx build --progress plain --tag tbb:stage1 --allow security.insecure .
 #
-#&& make fetch && make cargo_vendor-application-services
+
       - name: Fetch and Build
         shell: 'script -q -e -c "bash {0}"'
         run: |
           docker run -it -d --privileged --name tbb mohsen7s/tbb:stage1
-          docker exec -i tbb bash -c "cd tor-browser-build  && mkdir m && du out/container-image/* -h && echo wintoolchain "
+          docker exec -i tbb bash -c "cd tor-browser-build && make fetch && make cargo_vendor-application-services && make cargo_vendor-cbindgen-android && make cargo_vendor-cbindgen && make cargo_vendor-lucetc && make cargo_vendor-uniffi-rs && du out/container-image/* -h "
           docker commit tbb mohsen7s/tbb:stage2
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
           docker push mohsen7s/tbb:stage2
