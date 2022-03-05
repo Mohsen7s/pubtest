@@ -88,7 +88,7 @@ jobs:
         uses: docker/build-push-action@v2.2.2
         with:
           push: true
-          tags: tbb:stage1
+          tags: mohsen7s/tbb:stage1
           context: .
           allow: |
             security.insecure
