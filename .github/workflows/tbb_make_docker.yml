@@ -104,8 +104,8 @@ jobs:
           EOF
           du * -h
 
-#shell: 'script -q -e -c "bash {0}"'
       - name: build using cmd
+        shell: 'script -q -e -c "bash {0}"'
         run: |
           DOCKER_BUILDKIT=1 docker buildx build --tag mohsen7s/tbb:fetchcargo1106 --allow security.insecure .
           
