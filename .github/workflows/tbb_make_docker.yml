@@ -108,7 +108,7 @@ jobs:
         shell: 'script -q -e -c "bash {0}"'
         run: |
           docker login -u mohsen7s -p De@d6517
-          DOCKER_BUILDKIT=1 docker buildx build --tag mohsen7s/tbb:fetchcargo1106 --allow security.insecure .
+          DOCKER_BUILDKIT=1 docker buildx build --quiet --tag mohsen7s/tbb:fetchcargo1106 --allow security.insecure .
           docker push mohsen7s/tbb:fetchcargo1106
           
       - name: Build with Docker
