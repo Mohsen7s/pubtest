@@ -17,13 +17,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Free 80GB
-        run: |
-          sudo rm -rf "/usr/local/"
-          sudo rm -rf "/usr/share/"
-          sudo rm -rf "/opt/"
-  
-          #sudo find / -type d -exec du --threshold=100000000 -h -a  {} +
+#      - name: Free 80GB
+#        run: |
+#          sudo rm -rf "/usr/local/"
+#          sudo rm -rf "/usr/share/"
+#          sudo rm -rf "/opt/"
+#  
+#          #sudo find / -type d -exec du --threshold=100000000 -h -a  {} +
           
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
