@@ -108,7 +108,7 @@ jobs:
       - name: build using cmd
         run: |
           ls
-          docker build --tag mohsen7s/tbb:fetchcargo1106 Dockerfile
+          docker build --tag mohsen7s/tbb:fetchcargo1106
           
       - name: Build with Docker
         uses: docker/build-push-action@v2.2.2
