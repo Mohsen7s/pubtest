@@ -56,7 +56,7 @@ jobs:
           LABEL maintainer="some@fag.com"
           LABEL version="0.1"
           LABEL description="This help you build tor with single command on any enviroment, keep in mind 22 is in alpha"
-          ARG DEBIAN_FRONTEND=noninteractive
+          ENV DEBIAN_FRONTEND=noninteractive
           RUN apt-get update
           RUN apt install -y wget git build-essential vim curl
           RUN apt install -y libyaml-libyaml-perl libtemplate-perl libdatetime-perl \
