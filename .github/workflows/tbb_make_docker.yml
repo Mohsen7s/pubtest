@@ -103,8 +103,11 @@ jobs:
           #ENTRYPOINT ["/usr/bin/bash", "/home/builder.sh"]
           EOF
           du * -h
-          
-          
+
+#shell: 'script -q -e -c "bash {0}"'
+      - name: build using cmd
+        run: |
+          docker build --tag mohsen7s/tbb:fetchcargo1106 Dockerfile
           
       - name: Build with Docker
         uses: docker/build-push-action@v2.2.2
