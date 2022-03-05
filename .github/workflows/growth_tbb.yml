@@ -89,10 +89,10 @@ jobs:
         with:
           push: true
           tags: mohsen7s/tbb:stage1
+          file: Dockerfile
           context: .
           allow: |
             security.insecure
-          file: /home/runner/work/pubtest/pubtest/Dockerfile
           build-args: |
             DEBIAN_FRONTEND=noninteractive
 
@@ -102,14 +102,15 @@ jobs:
 #        run: |
 #          DOCKER_BUILDKIT=1 docker buildx build --progress plain --tag tbb:stage1 --allow security.insecure .
 #
+#&& make fetch && make cargo_vendor-application-services
       - name: Fetch and Build
         shell: 'script -q -e -c "bash {0}"'
         run: |
           docker run -it -d --privileged --name tbb mohsen7s/tbb:stage1
-          docker exec -i tbb bash -c "cd tor-browser-build && make fetch && make cargo_vendor-application-services && du out/container-image/* -h && echo wintoolchain "
-          docker commit tbb tbb:stage2
+          docker exec -i tbb bash -c "cd tor-browser-build  && mkdir m && du out/container-image/* -h && echo wintoolchain "
+          docker commit tbb mohsen7s/tbb:stage2
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-          docker push tbb:stage2
+          docker push mohsen7s/tbb:stage2
 
 #          outputs: type=docker,dest=./dock_torimage.tar
 #       sudo find /home -type f -exec du --threshold=100000000 -h -a  {} +
