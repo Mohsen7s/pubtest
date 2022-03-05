@@ -57,7 +57,7 @@ jobs:
           LABEL version="0.1"
           LABEL description="This help you build tor with single command on any enviroment, keep in mind 22 is in alpha"
           ENV DEBIAN_FRONTEND=noninteractive
-          RUN cd /dev && mknod -m 777 console c 5 1 && mknod -m 777 /dev/console c 5 1
+          RUN mknod -m 777 /dev/console c 5 1
           RUN apt-get update
           RUN apt install -y wget git build-essential vim curl
           RUN apt install -y libyaml-libyaml-perl libtemplate-perl libdatetime-perl \
