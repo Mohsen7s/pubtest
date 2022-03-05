@@ -83,7 +83,7 @@ jobs:
               && git config --global http.sslVerify false \
               && git config --global https.sslVerify false \
               && git config --global core.compression -1
-          RUN --security=insecure --mount=type=ssh git clone https://gitlab.torproject.org/tpo/applications/tor-browser-build.git \
+          RUN --security=insecure git clone https://gitlab.torproject.org/tpo/applications/tor-browser-build.git \
               && cd tor-browser-build \
               && make submodule-update \
               && cd rbm \
@@ -91,37 +91,39 @@ jobs:
               && wget https://gitlab.torproject.org/tpo/applications/rbm/-/raw/cad40965ce1204936a0df71c405bf0393b534ef9/container \
               && chmod 777 container \
               && cd .. \
-              && make fetch \
-              && make cargo_vendor-application-services \
-              && make cargo_vendor-cbindgen-android \
-              && make cargo_vendor-cbindgen \
-              && make cargo_vendor-lucetc \
-              && make cargo_vendor-uniffi-rs \
-              && make get_gradle_dependencies_list-application-services
+              && script -q -e -c "bash cd /home/tor-browser-build && make fetch && make cargo_vendor-application-services && make cargo_vendor-cbindgen-android && make cargo_vendor-cbindgen && make cargo_vendor-lucetc && make cargo_vendor-uniffi-rs && du out/container-image/* -h "
           #./rbm/rbm build release --target release --target torbrowser-windows-x86_64
           #make release-windows-x86_64'
           #ENTRYPOINT ["/usr/bin/bash", "/home/builder.sh"]
           EOF
           du * -h
 
-      - name: build using cmd
-        shell: 'script -q -e -c "bash {0}"'
-        run: |
-          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-          DOCKER_BUILDKIT=1 docker buildx build --quiet --push --tag tbb:fetchcargo1106 --allow security.insecure .
-          docker push mohsen7s/tbb:fetchcargo1106
+#              && make fetch \
+#              && make cargo_vendor-application-services \
+#              && make cargo_vendor-cbindgen-android \
+#              && make cargo_vendor-cbindgen \
+#              && make cargo_vendor-lucetc \
+#              && make cargo_vendor-uniffi-rs \
+#              && make get_gradle_dependencies_list-application-services
+#              
+#      - name: build using cmd
+#        shell: 'script -q -e -c "bash {0}"'
+#        run: |
+#          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+#          DOCKER_BUILDKIT=1 docker buildx build --quiet --push --tag tbb:fetchcargo1106 --allow security.insecure .
+#          docker push mohsen7s/tbb:fetchcargo1106
           
-#      - name: Build with Docker
-#        uses: docker/build-push-action@v2.2.2
-#        with:
-#          push: true
-#          tags: tbb:fetchcargo1106
-#          context: .
-#          allow: |
-#            security.insecure
-#          file: /home/runner/work/pubtest/pubtest/Dockerfile
-#          build-args: |
-#            DEBIAN_FRONTEND=noninteractive
+      - name: Build with Docker
+        uses: docker/build-push-action@v2.2.2
+        with:
+          push: true
+          tags: tbb:fetchcargo1106
+          context: .
+          allow: |
+            security.insecure
+          file: /home/runner/work/pubtest/pubtest/Dockerfile
+          build-args: |
+            DEBIAN_FRONTEND=noninteractive
 #            
 #          outputs: type=docker,dest=./dock_torimage.tar
 #       sudo find /home -type f -exec du --threshold=100000000 -h -a  {} +
