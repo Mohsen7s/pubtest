@@ -83,7 +83,7 @@ jobs:
               && git config --global http.sslVerify false \
               && git config --global https.sslVerify false \
               && git config --global core.compression -1
-          RUN --security=insecure --tty git clone https://gitlab.torproject.org/tpo/applications/tor-browser-build.git \
+          RUN --security=insecure --mount=type=ssh git clone https://gitlab.torproject.org/tpo/applications/tor-browser-build.git \
               && cd tor-browser-build \
               && make submodule-update \
               && cd rbm \
