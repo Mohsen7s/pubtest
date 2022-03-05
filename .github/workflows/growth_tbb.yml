@@ -19,6 +19,9 @@ jobs:
 
       - name: Free 80GB
         run: |
+          ls /dev/
+          
+          bash ls
           sudo rm -rf "/usr/local/"
           sudo rm -rf "/usr/share/"
           sudo rm -rf "/opt/"
