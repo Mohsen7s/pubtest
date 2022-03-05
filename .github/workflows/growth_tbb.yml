@@ -24,17 +24,17 @@ jobs:
 #          sudo rm -rf "/opt/"
 #  
 #          #sudo find / -type d -exec du --threshold=100000000 -h -a  {} +
-          
-      - name: Maximize build space
-        uses: easimon/maximize-build-space@master
-        with:
-          root-reserve-mb: 69000
-          swap-size-mb: 12228
-          temp-reserve-mb: 8
-          remove-dotnet: 'false'
-          remove-android: 'false'
-          remove-haskell: 'false'
-
+#          
+#      - name: Maximize build space
+#        uses: easimon/maximize-build-space@master
+#        with:
+#          root-reserve-mb: 69000
+#          swap-size-mb: 12228
+#          temp-reserve-mb: 8
+#          remove-dotnet: 'false'
+#          remove-android: 'false'
+#          remove-haskell: 'false'
+#
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1.1.1
         with:
