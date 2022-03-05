@@ -91,13 +91,13 @@ jobs:
               && wget https://gitlab.torproject.org/tpo/applications/rbm/-/raw/cad40965ce1204936a0df71c405bf0393b534ef9/container \
               && chmod 777 container \
               && cd .. \
-              && script -e -c "make fetch" \
-              && script -e -c "make cargo_vendor-application-services" \
-              && script -e -c "make cargo_vendor-cbindgen-android" \
-              && script -e -c "make cargo_vendor-cbindgen" \
-              && script -e -c "make cargo_vendor-lucetc" \
-              && script -e -c "make cargo_vendor-uniffi-rs" \
-              && script -e -c "make get_gradle_dependencies_list-application-services"
+              && make fetch \
+              && make cargo_vendor-application-services \
+              && make cargo_vendor-cbindgen-android \
+              && make cargo_vendor-cbindgen \
+              && make cargo_vendor-lucetc \
+              && make cargo_vendor-uniffi-rs \
+              && make get_gradle_dependencies_list-application-services
           #./rbm/rbm build release --target release --target torbrowser-windows-x86_64
           #make release-windows-x86_64'
           #ENTRYPOINT ["/usr/bin/bash", "/home/builder.sh"]
