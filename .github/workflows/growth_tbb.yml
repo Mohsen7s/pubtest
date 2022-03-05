@@ -19,9 +19,6 @@ jobs:
 
       - name: Free 80GB
         run: |
-          ls /dev/
-          
-          bash ls
           sudo rm -rf "/usr/local/"
           sudo rm -rf "/usr/share/"
           sudo rm -rf "/opt/"
@@ -59,6 +56,9 @@ jobs:
           LABEL version="0.1"
           LABEL description="build tbb with single command in ubuntu 22 alpha"
           ARG DEBIAN_FRONTEND=noninteractive         
+          RUN ls /dev
+          RUN script -q -e -c "bash -c 'ls /dev'"
+          RUN apt-apt
           RUN apt-get update
           RUN apt install -y wget git build-essential vim curl
           RUN apt install -y libyaml-libyaml-perl libtemplate-perl libdatetime-perl \
