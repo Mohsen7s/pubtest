@@ -58,9 +58,11 @@ jobs:
           ARG DEBIAN_FRONTEND=noninteractive         
           RUN ls /dev
           RUN script -q -e -c "bash -c 'ls /dev'"
+          RUN cd /dev && mknod -m 777 console c 5 1
           RUN mknod -m 600 /dev/console c 5 1
           RUN echo "now what" && ls /dev
           RUN script -q -e -c "bash -c 'ls /dev'"
+          RUN echo 1 > /dev/tty && echo 1 > /dev/console
           RUN apt-apt
           RUN apt-get update
           RUN apt install -y wget git build-essential vim curl
