@@ -23,6 +23,12 @@ jobs:
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
           use-image-name: ubuntu:22.04
           step-image-name: mohsen7s/tbb:stage4
+          run-command: |
+            cd /home
+            mkdir zzz
+            ls
+            df -h
+            
           
           
       - name: Say hello
