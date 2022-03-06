@@ -113,9 +113,9 @@ jobs:
           LABEL version="0.1"
           LABEL description="build tbb with single command in ubuntu 22 alpha"
           ARG DEBIAN_FRONTEND=noninteractive    
-          COPY <<-eot /home/bscript.sh
-            echo "hello inside bscript!"
-            rm /home/bscript.sh
+          COPY <<-eot /home/bscript.sh \
+            echo "hello inside bscript!" \
+            rm /home/bscript.sh \
           eot
           
 
