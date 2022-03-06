@@ -108,8 +108,8 @@ jobs:
         run: |
           cat >> bscript.sh << EOF
           apt-get update
-          apt install -y wget git build-essential vim curl
-          apt install -y libyaml-libyaml-perl libtemplate-perl libdatetime-perl \
+          apt install -y -qq wget git build-essential vim curl
+          apt install -y -qq libyaml-libyaml-perl libtemplate-perl libdatetime-perl \
                              libio-handle-util-perl libio-all-perl \
                              libio-captureoutput-perl libjson-perl libpath-tiny-perl \
                              libstring-shellquote-perl libsort-versions-perl \
@@ -130,12 +130,15 @@ jobs:
           rm -fr container
           wget https://gitlab.torproject.org/tpo/applications/rbm/-/raw/cad40965ce1204936a0df71c405bf0393b534ef9/container
           chmod 777 container
-          
+          cd ..
+          make fetch
+          make cargo_vendor-application-services
+          make cargo_vendor-cbindgen-android
+          make cargo_vendor-cbindgen
+          make cargo_vendor-lucetc
+          make cargo_vendor-uniffi-rs
           cd /home
           rm bscript.sh
-          ls
-          echo "now"
-          ls tor-browser-build/
           EOF
           
           
