@@ -106,17 +106,11 @@ jobs:
 #
       - name: Generate Builder Script
         run: |
-          cat >> Dockerfile << EOF
-          # syntax = docker/dockerfile:experimental
-          FROM ubuntu:22.04
-          LABEL maintainer="some@fag.com"
-          LABEL version="0.1"
-          LABEL description="build tbb with single command in ubuntu 22 alpha"
-          ARG DEBIAN_FRONTEND=noninteractive    
-          COPY <<-eot /home/bscript.sh \
-            echo "hello inside bscript!" \
-            rm /home/bscript.sh \
-          eot
+          cat >> bscript.sh << EOF
+          echo "hello inside bscript!" 
+          rm bscript.sh
+          EOF
+          
           
 
       - name: Fetch and Build
