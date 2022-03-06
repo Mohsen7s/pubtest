@@ -11,10 +11,9 @@ env:
   RBM_NUM_PROCS: 16
 
 jobs:
-  stage3:
+  stage1:
     name: tbb stage3
     runs-on: ubuntu-latest
-    needs: stage2
     steps:
     
       - name: start build
