@@ -27,8 +27,7 @@ jobs:
             cd /home
             mkdir zzz
             ls
-            df -h
-        
+            df -h 
                     
       - name: Say hello
         run: |
