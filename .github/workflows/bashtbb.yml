@@ -118,7 +118,7 @@ jobs:
         run: |
           docker run --interactive --tty --detach --privileged --name tbb ubuntu:22.04
           docker cp -a bscript.sh tbb:/home/
-          docker exec tbb bash -c "cd /home && ./bscript.sh "
+          docker exec -i tbb bash -c "cd /home && ./bscript.sh "
 #          docker exec -i tbb bash -c "cd tor-browser-build && make fetch && make cargo_vendor-application-services && make cargo_vendor-cbindgen-android && make cargo_vendor-cbindgen && make cargo_vendor-lucetc && make cargo_vendor-uniffi-rs && du out/container-image/* -h "
 #          docker commit tbb mohsen7s/tbb:stage2
 #          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
