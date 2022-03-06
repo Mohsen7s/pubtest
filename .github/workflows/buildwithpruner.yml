@@ -1,0 +1,30 @@
+name: Make Image for tbb
+
+on:
+  push :
+    paths:
+        - '.github/workflows/buildwithpruner.yml'
+        
+env:
+  DOCKER_BUILDKIT: 1
+  DEBIAN_FRONTEND: noninteractive
+  RBM_NUM_PROCS: 16
+
+jobs:
+  stage3:
+    name: tbb stage3
+    runs-on: ubuntu-latest
+    needs: stage2
+    steps:
+    
+      - name: start build
+        uses: mohsen7s/runner-prune-except-docker@master
+        with:
+          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
+          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          step-image-name: mohsen7s/tbb:stage1
+          
+      - name: Say hello
+        run: |
+          echo hi
+           
