@@ -60,16 +60,15 @@ jobs:
           chmod 777 container
           cd ..
           make fetch
+          make cargo_vendor-application-services
+          make cargo_vendor-cbindgen-android
+          make cargo_vendor-cbindgen
+          make cargo_vendor-lucetc
+          make cargo_vendor-uniffi-rs         
           make get_gradle_dependencies_list-android-components
-          cd /home
-          rm bscript.sh
+          rm /home/bscript.sh 
           EOF
           
-#          make cargo_vendor-application-services
-#          make cargo_vendor-cbindgen-android
-#          make cargo_vendor-cbindgen
-#          make cargo_vendor-lucetc
-#          make cargo_vendor-uniffi-rs          
 
       - name: Fetch and Build
         shell: 'script -q -e -c "bash {0}"'
@@ -122,4 +121,47 @@ jobs:
           docker exec tbb bash -c "cd /home && chmod +x bscript.sh && ./bscript.sh "
           docker commit tbb mohsen7s/tbb:stage2
           docker push mohsen7s/tbb:stage2
+
+
+  stage3:
+    name: tbb stage3
+    runs-on: ubuntu-latest
+    needs: stage2
+    steps:
+      - name: Free 80GB
+        run: |
+          sudo rm -rf "/usr/local/"
+          sudo rm -rf "/usr/share/"
+          sudo rm -rf "/opt/"
+          
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 69000
+          swap-size-mb: 12228
+          temp-reserve-mb: 8
+          remove-dotnet: 'false'
+          remove-android: 'false'
+          remove-haskell: 'false'
+
+      - name: Generate Builder Script
+        run: |
+          cat >> bscript.sh << EOF
+          cd tor-browser-build
+          make submodule-update
+          make fetch
+          make get_gradle_dependencies_list-fenix
+          rm /home/bscript.sh
+          EOF
+          
+
+      - name: Fetch and Build
+        shell: 'script -q -e -c "bash {0}"'
+        run: |
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+          docker run --interactive --tty --detach --privileged --name tbb mohsen7s/tbb:stage2
+          docker cp bscript.sh tbb:/home/
+          docker exec tbb bash -c "cd /home && chmod +x bscript.sh && ./bscript.sh "
+          docker commit tbb mohsen7s/tbb:stage3
+          docker push mohsen7s/tbb:stage3
 
