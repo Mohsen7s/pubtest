@@ -32,5 +32,4 @@ jobs:
                     
       - name: Say hello
         run: |
-          echo hi
-           
+          echo hi 
