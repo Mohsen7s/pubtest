@@ -28,6 +28,7 @@ jobs:
             mkdir zzz
             ls
             df -h 
+            echo "hello from run cmd"
                     
       - name: Say hello
         run: |
