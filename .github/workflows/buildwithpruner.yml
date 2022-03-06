@@ -16,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
-      - name: start build
+      - name: Start Build
         uses: mohsen7s/runner-prune-except-docker@main
         with:
-          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
+          docker-username: ${{ 1 }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
           step-image-name: mohsen7s/tbb:stage1
           
