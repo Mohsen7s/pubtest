@@ -130,7 +130,8 @@ jobs:
           rm -fr container
           wget https://gitlab.torproject.org/tpo/applications/rbm/-/raw/cad40965ce1204936a0df71c405bf0393b534ef9/container
           chmod 777 container
-          cd ..
+          
+          cd /home
           rm bscript.sh
           ls
           echo "now"
