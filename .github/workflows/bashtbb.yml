@@ -1,0 +1,134 @@
+name: Make Image for tbb
+
+on:
+  push :
+    paths:
+        - '.github/workflows/bashtbb.yml'
+
+
+env:
+  DOCKER_BUILDKIT: 1
+  DEBIAN_FRONTEND: noninteractive
+  RBM_NUM_PROCS: 16
+
+jobs:
+  browser:
+    name: tbb fetch and gradle fenix
+    runs-on: ubuntu-latest
+    steps:
+
+#      - name: Free 80GB
+#        run: |
+#          sudo rm -rf "/usr/local/"
+#          sudo rm -rf "/usr/share/"
+#          sudo rm -rf "/opt/"
+#  
+#          #sudo find / -type d -exec du --threshold=100000000 -h -a  {} +
+#          
+#      - name: Maximize build space
+#        uses: easimon/maximize-build-space@master
+#        with:
+#          root-reserve-mb: 69000
+#          swap-size-mb: 12228
+#          temp-reserve-mb: 8
+#          remove-dotnet: 'false'
+#          remove-android: 'false'
+#          remove-haskell: 'false'
+#
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1.1.1
+        with:
+          driver-opts: |
+            image=moby/buildkit:master          
+        
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+
+          
+#      - name: Make first dockerfile
+#        run: |
+#          cat >> Dockerfile << EOF
+#          # syntax = docker/dockerfile:experimental
+#          FROM ubuntu:22.04
+#          LABEL maintainer="some@fag.com"
+#          LABEL version="0.1"
+#          LABEL description="build tbb with single command in ubuntu 22 alpha"
+#          ARG DEBIAN_FRONTEND=noninteractive         
+#          RUN apt-get update
+#          RUN apt install -y wget git build-essential vim curl
+#          RUN apt install -y libyaml-libyaml-perl libtemplate-perl libdatetime-perl \
+#                             libio-handle-util-perl libio-all-perl \
+#                             libio-captureoutput-perl libjson-perl libpath-tiny-perl \
+#                             libstring-shellquote-perl libsort-versions-perl \
+#                             libdigest-sha-perl libdata-uuid-perl libdata-dump-perl \
+#                             libfile-copy-recursive-perl libfile-slurp-perl git \
+#                             uidmap
+#          RUN rm -rf /var/lib/apt/lists/* 
+#          WORKDIR /home
+#          RUN usermod --add-subuids 1000000-1099999 --add-subgids 1000000-1099999 root
+#          RUN git config --global http.postBuffer 524288000 \
+#              && git config --global https.postBuffer 524288000 \
+#              && git config --global http.sslVerify false \
+#              && git config --global https.sslVerify false \
+#              && git config --global core.compression -1
+#          RUN --security=insecure git clone https://gitlab.torproject.org/tpo/applications/tor-browser-build.git \
+#              && cd tor-browser-build \
+#              && make submodule-update \
+#              && cd rbm \
+#              && rm -fr container \
+#              && wget https://gitlab.torproject.org/tpo/applications/rbm/-/raw/cad40965ce1204936a0df71c405bf0393b534ef9/container \
+#              && chmod 777 container \
+#              && cd ..
+#          EOF
+#
+#
+#      - name: Build with Docker
+#        uses: docker/build-push-action@v2.2.2
+#        with:
+#          push: true
+#          tags: mohsen7s/tbb:stage1
+#          file: Dockerfile
+#          context: .
+#          allow: |
+#            security.insecure
+#          build-args: |
+#            DEBIAN_FRONTEND=noninteractive
+#
+#
+#      - name: build using cmd
+#        shell: 'script -q -e -c "bash {0}"'
+#        run: |
+#          DOCKER_BUILDKIT=1 docker buildx build --progress plain --tag tbb:stage1 --allow security.insecure .
+#
+      - name: Generate Builder Script
+        run: |
+          cat >> Dockerfile << EOF
+          # syntax = docker/dockerfile:experimental
+          FROM ubuntu:22.04
+          LABEL maintainer="some@fag.com"
+          LABEL version="0.1"
+          LABEL description="build tbb with single command in ubuntu 22 alpha"
+          ARG DEBIAN_FRONTEND=noninteractive    
+          COPY <<-eot /home/bscript.sh
+            echo "hello inside bscript!"
+            rm /home/bscript.sh
+          eot
+          
+
+      - name: Fetch and Build
+        shell: 'script -q -e -c "bash {0}"'
+        run: |
+          docker run --interactive --tty --detach --privileged --name tbb ubuntu:22.04
+          docker cp bscript.sh al1:/home/
+          docker exec tbb bash -c "cd /home && ./bscript.sh "
+#          docker exec -i tbb bash -c "cd tor-browser-build && make fetch && make cargo_vendor-application-services && make cargo_vendor-cbindgen-android && make cargo_vendor-cbindgen && make cargo_vendor-lucetc && make cargo_vendor-uniffi-rs && du out/container-image/* -h "
+#          docker commit tbb mohsen7s/tbb:stage2
+#          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+#          docker push mohsen7s/tbb:stage2
+
+#          outputs: type=docker,dest=./dock_torimage.tar
+#       sudo find /home -type f -exec du --threshold=100000000 -h -a  {} +
