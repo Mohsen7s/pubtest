@@ -20,7 +20,7 @@ jobs:
         uses: mohsen7s/runner-prune-except-docker@main
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
-          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          docker-password: 'hhh'
           step-image-name: mohsen7s/tbb:stage2
           
       - name: Say hello
