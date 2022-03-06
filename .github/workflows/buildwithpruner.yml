@@ -21,7 +21,7 @@ jobs:
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          step-image-name: mohsen7s/tbb:stage1
+          step-image-name: mohsen7s/tbb:stage2
           
       - name: Say hello
         run: |
