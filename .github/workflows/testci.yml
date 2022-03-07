@@ -30,8 +30,10 @@ jobs:
       run: |
         df -h
         cat /etc/docker/daemon.json
-        echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g '$GITHUB_WORKSPACE'"'
-        echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g '$GITHUB_WORKSPACE'"' | sudo tee /etc/default/docker > /dev/null
+        echo $'{\n  "graph": '$GITHUB_WORKSPACE' \n}'
+        echo $'{\n  "graph": '$GITHUB_WORKSPACE' \n}' | sudo tee /etc/docker/daemon.json
+        cat /etc/docker/daemon.json
+        #echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g '$GITHUB_WORKSPACE'"' | sudo tee /etc/default/docker > /dev/null
         sudo service docker restart
         sleep 5
         docker pull mohsen7s/tbb:stage3
