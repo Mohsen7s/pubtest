@@ -15,30 +15,25 @@ jobs:
 
     - name: build
       run: |
-        pwd
         cd
-        pwd
-        df -h
-        echo "now"
-        BUILD_MOUNT_PATH="${GITHUB_WORKSPACE}"
-        echo $GITHUB_WORKSPACE
-        echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g '$GITHUB_WORKSPACE'"'
-        echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g ${BUILD_MOUNT_PATHz}"' | sudo tee /etc/default/docker > /dev/null
-        sudo service docker restart
-        sleep 5
-        sudo docker pull ubuntu:22.04
+
       
     - name: Maximize build space
       uses: easimon/maximize-build-space@master
       with:
-        root-reserve-mb: 8
+        root-reserve-mb: 37000
         swap-size-mb: 8
         temp-reserve-mb: 8
         remove-dotnet: 'true'
         
     - name: build 3
       run: |
-        pwd
-        cd
-        pwd
         df -h
+        docker pull mohsen7s/tbb:stage3
+        
+#        echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g '$GITHUB_WORKSPACE'"'
+#        echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g '$GITHUB_WORKSPACE'"' | sudo tee /etc/default/docker > /dev/null
+#        sudo service docker restart
+#        sleep 5
+
+        
