@@ -20,7 +20,7 @@ jobs:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
           use-image-name: ubuntu:22.04
-          step-image-name: mohsen7s/tbb:stage1
+          step-image-name: mohsen7s/tbb:level1
           run-command: |
             apt-get update
             apt install -y -qq wget git build-essential vim curl
@@ -53,6 +53,7 @@ jobs:
             make cargo_vendor-lucetc
             make cargo_vendor-uniffi-rs         
             make get_gradle_dependencies_list-android-components
+            rm -fr logs out/container-image/
   stage2:
     runs-on: ubuntu-latest
     needs: stage1
@@ -62,11 +63,12 @@ jobs:
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          use-image-name: mohsen7s/tbb:stage1
-          step-image-name: mohsen7s/tbb:stage2
+          use-image-name: mohsen7s/tbb:level1
+          step-image-name: mohsen7s/tbb:level2
           run-command: |
             cd tor-browser-build
             make get_gradle_dependencies_list-application-services
+            rm -fr logs out/container-image/
   stage3:
     runs-on: ubuntu-latest
     needs: stage2
@@ -76,27 +78,29 @@ jobs:
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          use-image-name: mohsen7s/tbb:stage2
-          step-image-name: mohsen7s/tbb:stage3
+          use-image-name: mohsen7s/tbb:level2
+          step-image-name: mohsen7s/tbb:level3
           run-command: |
             cd tor-browser-build
             make get_gradle_dependencies_list-fenix
-  stage4:
-    runs-on: ubuntu-latest
-    needs: stage3
-    steps:
-      - name: Build 4
-        uses: mohsen7s/runner-prune-except-docker@main
-        with:
-          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
-          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          use-image-name: mohsen7s/tbb:stage3
-          step-image-name: mohsen7s/tbb:stage4
-          run-command: |
-            cd tor-browser-build
             rm -fr logs out/container-image/
-            du --max-depth=2 .
- 
+            
+#  stage4:
+#    runs-on: ubuntu-latest
+#    needs: stage3
+#    steps:
+#      - name: Build 4
+#        uses: mohsen7s/runner-prune-except-docker@main
+#        with:
+#          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
+#          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+#          use-image-name: mohsen7s/tbb:stage3
+#          step-image-name: mohsen7s/tbb:stage4
+#          run-command: |
+#            cd tor-browser-build
+#            rm -fr logs out/container-image/
+#            du --max-depth=2 .
+# 
       
 
 #            ./rbm/rbm build gradle --target release --target torbrowser-android-armv7
