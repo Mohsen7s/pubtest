@@ -83,7 +83,7 @@ jobs:
           run-command: |
             cd tor-browser-build
             make get_gradle_dependencies_list-fenix
-  stage4-lin:
+  stage4-osx:
     runs-on: ubuntu-latest
     needs: stage3
     steps:
@@ -99,7 +99,7 @@ jobs:
             ls out/container-image/
             du --max-depth=2 -h .
             rm -fr out/container-image
-            make release-linux-x86_64
+            make release-osx-x86_64
 
 
 
