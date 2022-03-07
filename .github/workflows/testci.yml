@@ -22,8 +22,8 @@ jobs:
         echo "now"
         BUILD_MOUNT_PATH="${GITHUB_WORKSPACE}"
         echo BUILD_MOUNT_PATH
-        echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g ${BUILD_MOUNT_PATH}"'
-        echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g ${BUILD_MOUNT_PATH}"' | sudo tee /etc/default/docker > /dev/null
+        echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g ${BUILD_MOUNT_PATHz}"'
+        echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g ${BUILD_MOUNT_PATHz}"' | sudo tee /etc/default/docker > /dev/null
         sudo service docker restart
         sleep 5
         sudo docker pull ubuntu:22.04
