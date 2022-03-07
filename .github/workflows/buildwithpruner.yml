@@ -99,15 +99,7 @@ jobs:
             ls out/container-image/
             du --max-depth=2 -h .
             rm -fr out/container-image
-            make fetch
-            make cargo_vendor-application-services
-            make cargo_vendor-cbindgen-android
-            make cargo_vendor-cbindgen
-            make cargo_vendor-lucetc
-            make cargo_vendor-uniffi-rs         
-            make get_gradle_dependencies_list-android-components
-            make get_gradle_dependencies_list-application-services
-            make get_gradle_dependencies_list-fenix
+            make release-windows-x86_64
 
 
 
