@@ -98,7 +98,14 @@ jobs:
             cd tor-browser-build
             ls out/container-image/
             du --max-depth=2 -h .
-            make list_toolchain_updates-firefox-macos
+            
+  stage5-what:
+    runs-on: ubuntu-latest
+    needs: stage4-list-macos
+    steps:
+      - name: what
+        run : |
+          du -h /home
 
 
 
