@@ -21,8 +21,8 @@ jobs:
         df -h
         echo "now"
         BUILD_MOUNT_PATH="${GITHUB_WORKSPACE}"
-        echo BUILD_MOUNT_PATH
-        echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g ${BUILD_MOUNT_PATHz}"'
+        echo ${{ env.GITHUB_WORKSPACE }}
+        echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g ${{ env.GITHUB_WORKSPACE }}"'
         echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g ${BUILD_MOUNT_PATHz}"' | sudo tee /etc/default/docker > /dev/null
         sudo service docker restart
         sleep 5
