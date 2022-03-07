@@ -29,7 +29,7 @@ jobs:
     - name: build 3
       run: |
         df -h
-        cat /etc/systemd/system/docker.service.d
+        cat /etc/docker/daemon.json
         echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g '$GITHUB_WORKSPACE'"'
         echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g '$GITHUB_WORKSPACE'"' | sudo tee /etc/default/docker > /dev/null
         sudo service docker restart
