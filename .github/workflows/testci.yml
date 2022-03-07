@@ -19,9 +19,7 @@ jobs:
         cd
         pwd
         df -h
-        
         echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g ${GITHUB_WORKSPACE}"
-
         echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g ${GITHUB_WORKSPACE}"' | sudo tee /etc/default/docker > /dev/null
         sudo service docker restart
         sleep 5
