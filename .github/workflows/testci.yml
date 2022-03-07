@@ -18,8 +18,25 @@ jobs:
         pwd
         cd
         pwd
+        df -h
         
         echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g /mnt"' | sudo tee /etc/default/docker > /dev/null
         sudo service docker restart
         sleep 5
         sudo docker pull ubuntu:22.04
+      
+    - name: Maximize build space
+      uses: easimon/maximize-build-space@master
+      with:
+        root-reserve-mb: 8
+        swap-size-mb: 8
+        temp-reserve-mb: 8
+        remove-dotnet: 'true'
+        
+    - name: build 3
+      run: |
+    
+        pwd
+        cd
+        pwd
+        df -h
