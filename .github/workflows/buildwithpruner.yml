@@ -83,7 +83,7 @@ jobs:
           run-command: |
             cd tor-browser-build
             make get_gradle_dependencies_list-fenix
-  stage4:
+  stage4-win:
     runs-on: ubuntu-latest
     needs: stage3
     steps:
