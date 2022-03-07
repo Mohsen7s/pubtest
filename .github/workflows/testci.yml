@@ -20,7 +20,9 @@ jobs:
         pwd
         df -h
         
-        echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g /mnt"' | sudo tee /etc/default/docker > /dev/null
+        echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g ${GITHUB_WORKSPACE}"
+
+        echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g ${GITHUB_WORKSPACE}"' | sudo tee /etc/default/docker > /dev/null
         sudo service docker restart
         sleep 5
         sudo docker pull ubuntu:22.04
@@ -35,7 +37,6 @@ jobs:
         
     - name: build 3
       run: |
-    
         pwd
         cd
         pwd
