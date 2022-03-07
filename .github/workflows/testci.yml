@@ -1,0 +1,25 @@
+
+name: CI Test Env
+
+on:
+  push :
+    paths:
+        - '.github/workflows/testci.yml'
+      
+      
+jobs:
+  build:
+    name: Build Centos (${{ matrix.OS_VERSION }})
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: build
+      run: |
+        pwd
+        cd
+        pwd
+        
+        echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g /mnt"' | sudo tee /etc/default/docker > /dev/null
+        sudo service docker restart
+        sleep 5
+        sudo docker pull ubuntu:22.04
