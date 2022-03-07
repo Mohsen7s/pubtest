@@ -94,20 +94,16 @@ jobs:
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
           use-image-name: mohsen7s/tbb:stage3
           step-image-name: mohsen7s/tbb:stage4
+          before-run: |
+            df -h
           run-command: |
             cd tor-browser-build
             ls out/container-image/
             du --max-depth=2 -h .
-            
-  stage5-what:
-    runs-on: ubuntu-latest
-    needs: stage4-list-macos
-    steps:
-      - name: what
-        run : |
-          du -h /home
-
-
+          after-run: |
+            df -h
+            sudo du -h /home
+      
 
 
 
