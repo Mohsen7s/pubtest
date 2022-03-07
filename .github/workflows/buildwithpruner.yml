@@ -23,7 +23,7 @@ jobs:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
           use-image-name: ubuntu:22.04
-          step-image-name: mohsen7s/tbb:zstage1
+          step-image-name: mohsen7s/tbb:stage1
           run-command: |
             apt-get update
             apt install -y -qq wget git build-essential vim curl
@@ -66,8 +66,8 @@ jobs:
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          use-image-name: mohsen7s/tbb:zstage1
-          step-image-name: mohsen7s/tbb:zstage2
+          use-image-name: mohsen7s/tbb:stage1
+          step-image-name: mohsen7s/tbb:stage2
           run-command: |
             cd tor-browser-build
             make submodule-update
@@ -83,8 +83,8 @@ jobs:
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          use-image-name: mohsen7s/tbb:zstage2
-          step-image-name: mohsen7s/tbb:zstage3
+          use-image-name: mohsen7s/tbb:stage2
+          step-image-name: mohsen7s/tbb:stage3
           run-command: |
             cd tor-browser-build
             make submodule-update
@@ -100,8 +100,8 @@ jobs:
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          use-image-name: mohsen7s/tbb:zstage3
-          step-image-name: mohsen7s/tbb:zstage4
+          use-image-name: mohsen7s/tbb:stage3
+          step-image-name: mohsen7s/tbb:stage4
           run-command: |
             cd tor-browser-build
             ls out/container-image/
