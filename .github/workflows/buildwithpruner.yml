@@ -98,5 +98,25 @@ jobs:
             cd tor-browser-build
             ls out/container-image/
             du --max-depth=2 -h .
-            make release-android
+            rm -fr out/container-image
+            make fetch
+            make cargo_vendor-application-services
+            make cargo_vendor-cbindgen-android
+            make cargo_vendor-cbindgen
+            make cargo_vendor-lucetc
+            make cargo_vendor-uniffi-rs         
+            make get_gradle_dependencies_list-android-components
+            make get_gradle_dependencies_list-application-services
+            make get_gradle_dependencies_list-fenix
 
+
+
+
+
+#            ./rbm/rbm build gradle --target release --target torbrowser-android-armv7
+#            ./rbm/rbm build binutils --target release --target torbrowser-android-armv7
+#            ./rbm/rbm build rust --target release --target torbrowser-android-armv7
+#            ./rbm/rbm build cbindgen --target release --target torbrowser-android-armv7
+#            ./rbm/rbm build node --target release --target torbrowser-android-armv7
+#            ./rbm/rbm build nasm --target release --target torbrowser-android-armv7
+#
