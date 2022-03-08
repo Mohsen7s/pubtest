@@ -141,7 +141,7 @@ jobs:
           use-image-name: mohsen7s/tbb:step1.windows1
           step-image-name: mohsen7s/tbb:step1.windows2
           run-command: |
-            ./build.sh 'firefox' 'release' 'torbrowser-windows-x86_64' '  - project: fxc2'
+            ./build.sh 'firefox' 'release' 'torbrowser-windows-x86_64' '  - filename: namecoin-etld.patch'
    
   #Consumed 2:30 
   linux1:
@@ -171,7 +171,7 @@ jobs:
           use-image-name: mohsen7s/tbb:step1.linux1
           step-image-name: mohsen7s/tbb:step1.linux2
           run-command: |
-            ./build.sh 'firefox' 'release' 'torbrowser-linux-x86_64' '  - project: fxc2'
+            ./build.sh 'firefox' 'release' 'torbrowser-linux-x86_64' '  - filename: namecoin-etld.patch'
             
             
   #Consumed X:XX
@@ -203,7 +203,7 @@ jobs:
           use-image-name: mohsen7s/tbb:step1.osx1
           step-image-name: mohsen7s/tbb:step1.osx2
           run-command: |
-            ./build.sh 'firefox' 'release' 'torbrowser-osx-x86_64' '  - project: fxc2'
+            ./build.sh 'firefox' 'release' 'torbrowser-osx-x86_64' '  - filename: namecoin-etld.patch'
 
 
 
