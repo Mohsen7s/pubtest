@@ -8,6 +8,7 @@ on:
 env:
   DOCKER_BUILDKIT: 1
   DEBIAN_FRONTEND: noninteractive
+  FIREFOX_STEP1: '  - filename: get-moz-build-date'
 
 jobs:
   stage1:
@@ -38,6 +39,18 @@ jobs:
             git config --global https.sslVerify false
             git config --global core.compression -1
             git clone https://gitlab.torproject.org/tpo/applications/tor-browser-build.git
+            
+            cat >> build.sh << EOF
+            #!/bin/sh
+            cd tor-browser-build
+            rm -fr projects/component-step-builder
+            mkdir projects/component-step-builder
+            echo $'#!/bin/sh \nset -e' | tee projects/component-step-builder/build
+            sed -e "/^$4/,/^ENDOFFILE/d" projects/$1/config > projects/component-step-builder/config
+            ./rbm/rbm build component-step-builder --target $2 --target $3
+            rm -fr projects/component-step-builder
+            EOF
+            
             cd tor-browser-build
             make submodule-update
             cd rbm
@@ -65,7 +78,6 @@ jobs:
             make cargo_vendor-lucetc
             make cargo_vendor-uniffi-rs
             rm -fr logs out/container-image/
-
  
 #  android1:
 #    runs-on: ubuntu-latest
@@ -97,21 +109,32 @@ jobs:
 ##            #./rbm/rbm build android-toolchain --target release --target torbrowser-android-armv7
 ##
 #
-#  linux1:
-#    runs-on: ubuntu-latest
-#    needs: stage2
-#    steps:
-#      - name: Build Linux Toolchain
-#        uses: mohsen7s/runner-prune-except-docker@main
-#        with:
-#          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
-#          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-#          use-image-name: mohsen7s/tbb:ci2
-#          step-image-name: mohsen7s/tbb:ci2.linux1
-#          run-command: |
-#            cd tor-browser-build
-#
-#
+  linux1:
+    runs-on: ubuntu-latest
+    needs: stage2
+    steps:
+      - name: Build Linux Toolchain
+        uses: mohsen7s/runner-prune-except-docker@main
+        with:
+          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
+          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          use-image-name: mohsen7s/tbb:ci2
+          step-image-name: mohsen7s/tbb:ci2.linux1
+          run-command: |
+            cat >> build.sh << EOF
+            #!/bin/sh
+            cd tor-browser-build
+            rm -fr projects/component-step-builder
+            mkdir projects/component-step-builder
+            echo $'#!/bin/sh \nset -e' | tee projects/component-step-builder/build
+            sed -e "/^$4/,/^ENDOFFILE/d" projects/$1/config > projects/component-step-builder/config
+            ./rbm/rbm build component-step-builder --target $2 --target $3
+            rm -fr projects/component-step-builder
+            EOF
+            ./firefox-step.sh 'firefox' 'release' 'torbrowser-windows-x86_64' '  - filename: get-moz-build-date'
+            
+            
+
 ##  stage1-linux2:
 ##    runs-on: ubuntu-latest
 ##    needs: stage1-linux1
@@ -208,5 +231,6 @@ jobs:
 ##            ./rbm/rbm build node --target release --target torbrowser-android-armv7
 ##            ./rbm/rbm build nasm --target release --target torbrowser-android-armv7
 ##
+#
 #
 #
