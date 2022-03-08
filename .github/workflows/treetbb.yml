@@ -47,58 +47,146 @@ jobs:
             cd ..
             make fetch
 
-#  stage2:
+  stage1-android1:
+    runs-on: ubuntu-latest
+    needs: stage1
+    steps:
+      - name: Build Android Toolchain
+        uses: mohsen7s/runner-prune-except-docker@main
+        with:
+          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
+          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          use-image-name: mohsen7s/tbb:ci1
+          step-image-name: mohsen7s/tbb:ci1.android1
+          run-command: |
+            cd tor-browser-build
+            ./rbm/rbm build android-toolchain --target release --target torbrowser-android-armv7
+
+#  stage1-android2:
 #    runs-on: ubuntu-latest
-#    needs: stage1
+#    needs: stage1-android1
 #    steps:
-#      - name: Build Android Toolchain
+#      - name: Build Android X
 #        uses: mohsen7s/runner-prune-except-docker@main
 #        with:
 #          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
 #          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-#          use-image-name: mohsen7s/tbb:level1
-#          step-image-name: mohsen7s/tbb:level2
+#          use-image-name: mohsen7s/tbb:ci1.android1
+#          step-image-name: mohsen7s/tbb:ci1.android2
 #          run-command: |
 #            cd tor-browser-build
-#            
-#  stage3:
+#            #./rbm/rbm build android-toolchain --target release --target torbrowser-android-armv7
+#
+
+  stage1-linux1:
+    runs-on: ubuntu-latest
+    needs: stage1
+    steps:
+      - name: Build Linux Toolchain
+        uses: mohsen7s/runner-prune-except-docker@main
+        with:
+          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
+          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          use-image-name: mohsen7s/tbb:ci1
+          step-image-name: mohsen7s/tbb:ci1.linux1
+          run-command: |
+            cd tor-browser-build
+            ./rbm/rbm build gcc --target release --target torbrowser-linux-x86_64
+
+#  stage1-linux2:
 #    runs-on: ubuntu-latest
-#    needs: stage2
+#    needs: stage1-linux1
 #    steps:
-#      - name: Build 3
+#      - name: Build Linux X
 #        uses: mohsen7s/runner-prune-except-docker@main
 #        with:
 #          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
 #          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-#          use-image-name: mohsen7s/tbb:level2
-#          step-image-name: mohsen7s/tbb:level3
+#          use-image-name: mohsen7s/tbb:ci1.linux1
+#          step-image-name: mohsen7s/tbb:ci1.linux2
 #          run-command: |
 #            cd tor-browser-build
+#            #./rbm/rbm build gcc --target release --target torbrowser-linux-x86_64
 #
-#            
-##  stage4:
-##    runs-on: ubuntu-latest
-##    needs: stage3
-##    steps:
-##      - name: Build 4
-##        uses: mohsen7s/runner-prune-except-docker@main
-##        with:
-##          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
-##          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-##          use-image-name: mohsen7s/tbb:stage3
-##          step-image-name: mohsen7s/tbb:stage4
-##          run-command: |
-##            cd tor-browser-build
-##            rm -fr logs out/container-image/
-##            du --max-depth=2 .
-## 
-#      
+
+  stage1-windows1:
+    runs-on: ubuntu-latest
+    needs: stage1
+    steps:
+      - name: Build Windows Toolchain
+        uses: mohsen7s/runner-prune-except-docker@main
+        with:
+          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
+          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          use-image-name: mohsen7s/tbb:ci1
+          step-image-name: mohsen7s/tbb:ci1.windows1
+          run-command: |
+            cd tor-browser-build
+            ./rbm/rbm build mingw-w64 --target release --target torbrowser-windows-x86_64
+
+#  stage1-windows2:
+#    runs-on: ubuntu-latest
+#    needs: stage1-windows1
+#    steps:
+#      - name: Build Windows X
+#        uses: mohsen7s/runner-prune-except-docker@main
+#        with:
+#          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
+#          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+#          use-image-name: mohsen7s/tbb:ci1.windows1
+#          step-image-name: mohsen7s/tbb:ci1.windows2
+#          run-command: |
+#            cd tor-browser-build
+#            #./rbm/rbm build mingw-w64 --target release --target torbrowser-windows-x86_64
 #
-##            ./rbm/rbm build gradle --target release --target torbrowser-android-armv7
-##            ./rbm/rbm build binutils --target release --target torbrowser-android-armv7
-##            ./rbm/rbm build rust --target release --target torbrowser-android-armv7
-##            ./rbm/rbm build cbindgen --target release --target torbrowser-android-armv7
-##            ./rbm/rbm build node --target release --target torbrowser-android-armv7
-##            ./rbm/rbm build nasm --target release --target torbrowser-android-armv7
-##
+
+  stage1-osx1:
+    runs-on: ubuntu-latest
+    needs: stage1
+    steps:
+      - name: Build OSX Toolchain
+        uses: mohsen7s/runner-prune-except-docker@main
+        with:
+          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
+          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          use-image-name: mohsen7s/tbb:ci1
+          step-image-name: mohsen7s/tbb:ci1.osx1
+          run-command: |
+            cd tor-browser-build
+            ./rbm/rbm build macosx-toolchain --target release --target torbrowser-osx-x86_64
+
+
+#  stage1-osx2:
+#    runs-on: ubuntu-latest
+#    needs: stage1-osx1
+#    steps:
+#      - name: Build OSX X
+#        uses: mohsen7s/runner-prune-except-docker@main
+#        with:
+#          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
+#          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+#          use-image-name: mohsen7s/tbb:ci1.osx1
+#          step-image-name: mohsen7s/tbb:ci1.osx2
+#          run-command: |
+#            cd tor-browser-build
+#            #./rbm/rbm build macosx-toolchain --target release --target torbrowser-osx-x86_64
 #
+
+
+
+
+
+
+
+
+
+
+
+#            ./rbm/rbm build gradle --target release --target torbrowser-android-armv7
+#            ./rbm/rbm build binutils --target release --target torbrowser-android-armv7
+#            ./rbm/rbm build rust --target release --target torbrowser-android-armv7
+#            ./rbm/rbm build cbindgen --target release --target torbrowser-android-armv7
+#            ./rbm/rbm build node --target release --target torbrowser-android-armv7
+#            ./rbm/rbm build nasm --target release --target torbrowser-android-armv7
+#
+
