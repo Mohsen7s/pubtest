@@ -23,11 +23,11 @@ jobs:
           step-image-name: mohsen7s/tbb:step1
           run-command: |
             cat >> build.sh << EOF
-            #${{ '!/bin/sh' }}
+            ${{ '##!/bin/sh' }}
             ${{ 'cd tor-browser-build' }}
             ${{ 'rm -fr projects/component-step-builder' }}
             ${{ 'mkdir projects/component-step-builder' }}
-            {{ 'echo $'' }}#{{ '!/bin/sh \nset -e' | tee projects/component-step-builder/build' }}
+            ${{ 'echo $'##!/bin/sh \nset -e' | tee projects/component-step-builder/build' }}
             ${{ 'sed -e "/^$4/,/^ENDOFFILE/d" projects/$1/config > projects/component-step-builder/config' }}
             ${{ './rbm/rbm build component-step-builder --target $2 --target $3' }}
             ${{ 'rm -fr projects/component-step-builder' }}
