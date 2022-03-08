@@ -141,7 +141,7 @@ jobs:
           use-image-name: mohsen7s/tbb:step1.windows1
           step-image-name: mohsen7s/tbb:step1.windows2
           run-command: |
-            ./build.sh 'firefox' 'release' 'torbrowser-windows-x86_64' '  - project: cbindgen'
+            ./build.sh 'firefox' 'release' 'torbrowser-windows-x86_64' '  - project: fxc2'
    
   #Consumed 2:30 
   linux1:
@@ -171,48 +171,48 @@ jobs:
           use-image-name: mohsen7s/tbb:step1.linux1
           step-image-name: mohsen7s/tbb:step1.linux2
           run-command: |
-            ./build.sh 'firefox' 'release' 'torbrowser-linux-x86_64' '  - project: cbindgen'
+            ./build.sh 'firefox' 'release' 'torbrowser-linux-x86_64' '  - project: fxc2'
             
             
-#  #Consumed X:XX
-#  osx1:
-#    runs-on: ubuntu-latest
-#    needs: stage1
-#    steps:
-#      - name: Build OSX Compiler
-#        uses: mohsen7s/runner-prune-except-docker@main
-#        with:
-#          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
-#          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-#          use-image-name: mohsen7s/tbb:step1
-#          step-image-name: mohsen7s/tbb:step1.osx1
-#          run-command: |
-#            ./build.sh 'firefox' 'release' 'torbrowser-osx-x86_64' '  - filename: get-moz-build-date'
+  #Consumed X:XX
+  osx1:
+    runs-on: ubuntu-latest
+    needs: stage1
+    steps:
+      - name: Build OSX Compiler
+        uses: mohsen7s/runner-prune-except-docker@main
+        with:
+          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
+          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          use-image-name: mohsen7s/tbb:step1
+          step-image-name: mohsen7s/tbb:step1.osx1
+          run-command: |
+            ./build.sh 'firefox' 'release' 'torbrowser-osx-x86_64' '  - filename: get-moz-build-date'
+
+ 
+  #Consumed X:XX
+  osx2:
+    runs-on: ubuntu-latest
+    needs: osx1
+    steps:
+      - name: Build OSX Rust
+        uses: mohsen7s/runner-prune-except-docker@main
+        with:
+          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
+          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          use-image-name: mohsen7s/tbb:step1.osx1
+          step-image-name: mohsen7s/tbb:step1.osx2
+          run-command: |
+            ./build.sh 'firefox' 'release' 'torbrowser-osx-x86_64' '  - project: fxc2'
+
+
+
+
+#            ./rbm/rbm build gradle --target release --target torbrowser-android-armv7
+#            ./rbm/rbm build binutils --target release --target torbrowser-android-armv7
+#            ./rbm/rbm build rust --target release --target torbrowser-android-armv7
+#            ./rbm/rbm build cbindgen --target release --target torbrowser-android-armv7
+#            ./rbm/rbm build node --target release --target torbrowser-android-armv7
+#            ./rbm/rbm build nasm --target release --target torbrowser-android-armv7
 #
-# 
-#  #Consumed X:XX
-#  osx2:
-#    runs-on: ubuntu-latest
-#    needs: osx1
-#    steps:
-#      - name: Build OSX Rust
-#        uses: mohsen7s/runner-prune-except-docker@main
-#        with:
-#          docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
-#          docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-#          use-image-name: mohsen7s/tbb:step1.osx1
-#          step-image-name: mohsen7s/tbb:step1.osx2
-#          run-command: |
-#            ./build.sh 'firefox' 'release' 'torbrowser-osx-x86_64' '  - project: cbindgen'
-#
-#
-#
-#
-##            ./rbm/rbm build gradle --target release --target torbrowser-android-armv7
-##            ./rbm/rbm build binutils --target release --target torbrowser-android-armv7
-##            ./rbm/rbm build rust --target release --target torbrowser-android-armv7
-##            ./rbm/rbm build cbindgen --target release --target torbrowser-android-armv7
-##            ./rbm/rbm build node --target release --target torbrowser-android-armv7
-##            ./rbm/rbm build nasm --target release --target torbrowser-android-armv7
-##
-#
+
