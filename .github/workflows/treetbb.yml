@@ -23,7 +23,7 @@ jobs:
           step-image-name: mohsen7s/tbb:step1
           run-command: |
             cat >> build.sh << EOF
-            ${{ '#!/bin/sh' }}
+            #!/bin/sh
             ${{ 'cd tor-browser-build' }}
             ${{ 'rm -fr projects/component-step-builder' }}
             ${{ 'mkdir projects/component-step-builder' }}
