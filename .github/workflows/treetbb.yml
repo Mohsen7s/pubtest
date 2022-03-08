@@ -24,6 +24,7 @@ jobs:
           run-command: |
             echo IyEvYmluL3NoCmNkIHRvci1icm93c2VyLWJ1aWxkCnJtIC1mciBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyCm1rZGlyIHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIKZWNobyAkJyMhL2Jpbi9zaCBcbnNldCAtZScgfCB0ZWUgcHJvamVjdHMvY29tcG9uZW50LXN0ZXAtYnVpbGRlci9idWlsZApzZWQgLWUgIi9eJDQvLC9eRU5ET0ZGSUxFL2QiIHByb2plY3RzLyQxL2NvbmZpZyA+IHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIvY29uZmlnCi4vcmJtL3JibSBidWlsZCBjb21wb25lbnQtc3RlcC1idWlsZGVyIC0tdGFyZ2V0ICQyIC0tdGFyZ2V0ICQzCnJtIC1mciBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyCg== | base64 --decode > build.sh
             cat build.sh
+            chmod +x build.sh
             apt-get update
             apt install -y -qq wget git build-essential vim curl
             apt install -y -qq libyaml-libyaml-perl libtemplate-perl libdatetime-perl \
@@ -82,7 +83,7 @@ jobs:
           use-image-name: mohsen7s/tbb:step1
           step-image-name: mohsen7s/tbb:step1.android1
           run-command: |
-            ./firefox-step.sh 'fenix' 'release' 'torbrowser-android-armv7' '  - project: gradle'
+            ./build.sh 'fenix' 'release' 'torbrowser-android-armv7' '  - project: gradle'
 
 #  stage1-android2:
 #    runs-on: ubuntu-latest
@@ -112,7 +113,7 @@ jobs:
           use-image-name: mohsen7s/tbb:step1
           step-image-name: mohsen7s/tbb:step1.linux1
           run-command: |
-            ./firefox-step.sh 'firefox' 'release' 'torbrowser-linux-x86_64' '  - filename: get-moz-build-date'
+            ./build.sh 'firefox' 'release' 'torbrowser-linux-x86_64' '  - filename: get-moz-build-date'
             
             
 
@@ -144,7 +145,7 @@ jobs:
           use-image-name: mohsen7s/tbb:step1
           step-image-name: mohsen7s/tbb:step1.windows1
           run-command: |
-            ./firefox-step.sh 'firefox' 'release' 'torbrowser-windows-x86_64' '  - filename: get-moz-build-date'
+            ./build.sh 'firefox' 'release' 'torbrowser-windows-x86_64' '  - filename: get-moz-build-date'
             
 #  stage1-windows2:
 #    runs-on: ubuntu-latest
@@ -174,7 +175,7 @@ jobs:
           use-image-name: mohsen7s/tbb:step1
           step-image-name: mohsen7s/tbb:step1.osx1
           run-command: |
-            ./firefox-step.sh 'firefox' 'release' 'torbrowser-osx-x86_64' '  - filename: get-moz-build-date'
+            ./build.sh 'firefox' 'release' 'torbrowser-osx-x86_64' '  - filename: get-moz-build-date'
 
 
 
