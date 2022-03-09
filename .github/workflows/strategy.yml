@@ -53,7 +53,19 @@ jobs:
     needs: stage1
     strategy: 
       matrix:
-        arch: [torbrowser-android-armv7, torbrowser-windows-x86_64, torbrowser-linux-x86_64, torbrowser-osx-x86_64 ]
+        include: 
+          - name: android1
+            component: android-toolchain
+            target: torbrowser-android-armv7
+          - name: windows1
+            component: mingw-w64
+            target: torbrowser-windows-x86_64
+          - name: linux1
+            component: gcc
+            target: torbrowser-linux-x86_64
+          - name: macosx1
+            component: macosx-toolchain
+            target: torbrowser-osx-x86_64
     steps:
       - name: Build Android Compiler
         uses: mohsen7s/runner-prune-except-docker@main
@@ -61,8 +73,8 @@ jobs:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
           use-image-name: mohsen7s/tbb:sc1
-          step-image-name: mohsen7s/tbb:sc1.${{ matrix.node }}
+          step-image-name: mohsen7s/tbb:mat.${{ matrix.name }}
           run-command: |
             cd tor-browser-build
-            ./rbm/rbm build android-toolchain --target release --target ${{ matrix.node }}
+            ./rbm/rbm build ${{ matrix.component }} --target release --target ${{ matrix.target }}
   
