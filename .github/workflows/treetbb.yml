@@ -148,7 +148,7 @@ jobs:
           use-image-name: mohsen7s/tbb:step1.windows1
           step-image-name: mohsen7s/tbb:step1.windows2
           run-command: |  
-            echo IyEvYmluL3NoCmNkIHRvci1icm93c2VyLWJ1aWxkCnJtIC1mciBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyCm1rZGlyIHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIKZWNobyAkJyMhL2Jpbi9zaCBcbnNldCAtZScgfCB0ZWUgcHJvamVjdHMvY29tcG9uZW50LXN0ZXAtYnVpbGRlci9idWlsZApzZWQgLWUgIi9eJDQvLC9eRU5ET0ZGSUxFL2QiIHByb2plY3RzLyQxL2NvbmZpZyA+IHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIvY29uZmlnCi4vcmJtL3JibSBidWlsZCBjb21wb25lbnQtc3RlcC1idWlsZGVyIC0tdGFyZ2V0ICQyIC0tdGFyZ2V0ICQzCnJtIC1mciBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyCg== | base64 --decode > build1.sh
+            echo IyEvYmluL3NoCmNkIHRvci1icm93c2VyLWJ1aWxkCnJtIC1mciBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyCiNta2RpciBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyCiNlY2hvICQnIyEvYmluL3NoIFxuc2V0IC1lJyB8IHRlZSBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyL2J1aWxkCiNzZWQgLWUgIi9eJDQvLC9eRU5ET0ZGSUxFL2QiIHByb2plY3RzLyQxL2NvbmZpZyA+IHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIvY29uZmlnCmNwIC1yIHByb2plY3RzLyQxIHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIKbXYgcHJvamVjdHMvY29tcG9uZW50LXN0ZXAtYnVpbGRlci9jb25maWcgcHJvamVjdHMvY29tcG9uZW50LXN0ZXAtYnVpbGRlci90bXBjZmcKc2VkIC1lICIvXiQ0LywvXkVORE9GRklMRS9kIiBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyL3RtcGNmZyA+IHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIvY29uZmlnCi4vcmJtL3JibSBidWlsZCBjb21wb25lbnQtc3RlcC1idWlsZGVyIC0tdGFyZ2V0ICQyIC0tdGFyZ2V0ICQzCiNybSAtZnIgcHJvamVjdHMvY29tcG9uZW50LXN0ZXAtYnVpbGRlcgo= | base64 --decode > build1.sh
             cat build1.sh
             ./build1.sh 'firefox' 'release' 'torbrowser-windows-x86_64' '  - project: clang'
    
@@ -180,7 +180,7 @@ jobs:
           use-image-name: mohsen7s/tbb:step1.linux1
           step-image-name: mohsen7s/tbb:step1.linux2
           run-command: |
-            echo IyEvYmluL3NoCmNkIHRvci1icm93c2VyLWJ1aWxkCnJtIC1mciBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyCm1rZGlyIHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIKZWNobyAkJyMhL2Jpbi9zaCBcbnNldCAtZScgfCB0ZWUgcHJvamVjdHMvY29tcG9uZW50LXN0ZXAtYnVpbGRlci9idWlsZApzZWQgLWUgIi9eJDQvLC9eRU5ET0ZGSUxFL2QiIHByb2plY3RzLyQxL2NvbmZpZyA+IHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIvY29uZmlnCi4vcmJtL3JibSBidWlsZCBjb21wb25lbnQtc3RlcC1idWlsZGVyIC0tdGFyZ2V0ICQyIC0tdGFyZ2V0ICQzCnJtIC1mciBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyCg== | base64 --decode > build1.sh          
+            echo IyEvYmluL3NoCmNkIHRvci1icm93c2VyLWJ1aWxkCnJtIC1mciBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyCiNta2RpciBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyCiNlY2hvICQnIyEvYmluL3NoIFxuc2V0IC1lJyB8IHRlZSBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyL2J1aWxkCiNzZWQgLWUgIi9eJDQvLC9eRU5ET0ZGSUxFL2QiIHByb2plY3RzLyQxL2NvbmZpZyA+IHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIvY29uZmlnCmNwIC1yIHByb2plY3RzLyQxIHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIKbXYgcHJvamVjdHMvY29tcG9uZW50LXN0ZXAtYnVpbGRlci9jb25maWcgcHJvamVjdHMvY29tcG9uZW50LXN0ZXAtYnVpbGRlci90bXBjZmcKc2VkIC1lICIvXiQ0LywvXkVORE9GRklMRS9kIiBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyL3RtcGNmZyA+IHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIvY29uZmlnCi4vcmJtL3JibSBidWlsZCBjb21wb25lbnQtc3RlcC1idWlsZGVyIC0tdGFyZ2V0ICQyIC0tdGFyZ2V0ICQzCiNybSAtZnIgcHJvamVjdHMvY29tcG9uZW50LXN0ZXAtYnVpbGRlcgo= | base64 --decode > build1.sh
             cat build1.sh
             ./build1.sh 'firefox' 'release' 'torbrowser-linux-x86_64' '  - project: clang'
             
@@ -214,7 +214,7 @@ jobs:
           use-image-name: mohsen7s/tbb:step1.osx1
           step-image-name: mohsen7s/tbb:step1.osx2
           run-command: |
-            echo IyEvYmluL3NoCmNkIHRvci1icm93c2VyLWJ1aWxkCnJtIC1mciBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyCm1rZGlyIHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIKZWNobyAkJyMhL2Jpbi9zaCBcbnNldCAtZScgfCB0ZWUgcHJvamVjdHMvY29tcG9uZW50LXN0ZXAtYnVpbGRlci9idWlsZApzZWQgLWUgIi9eJDQvLC9eRU5ET0ZGSUxFL2QiIHByb2plY3RzLyQxL2NvbmZpZyA+IHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIvY29uZmlnCi4vcmJtL3JibSBidWlsZCBjb21wb25lbnQtc3RlcC1idWlsZGVyIC0tdGFyZ2V0ICQyIC0tdGFyZ2V0ICQzCnJtIC1mciBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyCg== | base64 --decode > build1.sh
+            echo IyEvYmluL3NoCmNkIHRvci1icm93c2VyLWJ1aWxkCnJtIC1mciBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyCiNta2RpciBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyCiNlY2hvICQnIyEvYmluL3NoIFxuc2V0IC1lJyB8IHRlZSBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyL2J1aWxkCiNzZWQgLWUgIi9eJDQvLC9eRU5ET0ZGSUxFL2QiIHByb2plY3RzLyQxL2NvbmZpZyA+IHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIvY29uZmlnCmNwIC1yIHByb2plY3RzLyQxIHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIKbXYgcHJvamVjdHMvY29tcG9uZW50LXN0ZXAtYnVpbGRlci9jb25maWcgcHJvamVjdHMvY29tcG9uZW50LXN0ZXAtYnVpbGRlci90bXBjZmcKc2VkIC1lICIvXiQ0LywvXkVORE9GRklMRS9kIiBwcm9qZWN0cy9jb21wb25lbnQtc3RlcC1idWlsZGVyL3RtcGNmZyA+IHByb2plY3RzL2NvbXBvbmVudC1zdGVwLWJ1aWxkZXIvY29uZmlnCi4vcmJtL3JibSBidWlsZCBjb21wb25lbnQtc3RlcC1idWlsZGVyIC0tdGFyZ2V0ICQyIC0tdGFyZ2V0ICQzCiNybSAtZnIgcHJvamVjdHMvY29tcG9uZW50LXN0ZXAtYnVpbGRlcgo= | base64 --decode > build1.sh
             cat build1.sh
             ./build1.sh 'firefox' 'release' 'torbrowser-osx-x86_64' '  - project: clang'
 
