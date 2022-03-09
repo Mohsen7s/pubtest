@@ -1,0 +1,27 @@
+name: Tree tbb
+
+on:
+  push :
+    paths:
+        - '.github/workflows/teststeper.yml'
+
+env:
+  DOCKER_BUILDKIT: 1
+  DEBIAN_FRONTEND: noninteractive
+  
+jobs:
+  call-workflow-passing-data:
+    uses: mohsen7s/runner-prune-except-docker/.github/workflows/step-builder.yml@main
+    with:
+      docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
+      docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      step1-name: Test1
+      step1-using-image: mohsen7s/tbb:sc1.android1
+      step1-build-image: mohsen7s/tbb:sc1.android2
+      step1-command: |
+        cd tor-browser-build
+        ./rbm/rbm build rust --target release --target torbrowser-android-armv7
+        ./rbm/rbm build node --target release --target torbrowser-android-armv7        
+      
+      
+      
