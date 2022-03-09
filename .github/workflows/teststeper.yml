@@ -20,7 +20,16 @@ jobs:
       step1-command: |
         cd tor-browser-build
         ./rbm/rbm build rust --target release --target torbrowser-android-armv7
-        ./rbm/rbm build node --target release --target torbrowser-android-armv7        
+        ./rbm/rbm build node --target release --target torbrowser-android-armv7
+      
+      step2-name: Test2
+      step2-using-image: mohsen7s/tbb:sc1.android1
+      step2-build-image: mohsen7s/tbb:sc1.android2
+      step2-command: |
+        cd tor-browser-build
+        ./rbm/rbm build rust --target release --target torbrowser-android-armv7
+        ./rbm/rbm build node --target release --target torbrowser-android-armv7
+        
     secrets:
       docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
       docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
