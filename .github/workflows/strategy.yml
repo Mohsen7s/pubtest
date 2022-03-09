@@ -3,7 +3,7 @@ name: Tree tbb
 on:
   push :
     paths:
-        - '.github/workflows/singlecomponent.yml'
+        - '.github/workflows/strategy.yml'
 
 env:
   DOCKER_BUILDKIT: 1
