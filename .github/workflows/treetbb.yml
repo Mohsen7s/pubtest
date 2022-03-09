@@ -65,7 +65,9 @@ jobs:
           use-image-name: mohsen7s/tbb:step1
           step-image-name: mohsen7s/tbb:step1.android1
           run-command: |
-            ./build.sh 'geckoview' 'release' 'torbrowser-android-armv7' '  - project: node'
+            cd tor-browser-build
+            make get_gradle_dependencies_list-application-services          
+#            ./build.sh 'geckoview' 'release' 'torbrowser-android-armv7' '  - project: node'
   
   #Consumed X:XX
   android2:
@@ -80,7 +82,10 @@ jobs:
           use-image-name: mohsen7s/tbb:step1.android1
           step-image-name: mohsen7s/tbb:step1.android2
           run-command: |
-            ./build.sh 'fenix' 'release' 'torbrowser-android-armv7' '  - name: application-services'
+            cd tor-browser-build
+            make get_gradle_dependencies_list-android-components            
+#            ./build.sh 'fenix' 'release' 'torbrowser-android-armv7' '  - name: application-services'
+
   #Consumed X:XX
   android3:
     runs-on: ubuntu-latest
@@ -94,7 +99,9 @@ jobs:
           use-image-name: mohsen7s/tbb:step1.android2
           step-image-name: mohsen7s/tbb:step1.android3
           run-command: |
-            ./build.sh 'fenix' 'release' 'torbrowser-android-armv7' '  - name: geckoview'
+            cd tor-browser-build
+            make get_gradle_dependencies_list-fenix           
+#            ./build.sh 'fenix' 'release' 'torbrowser-android-armv7' '  - name: geckoview'
  
   #Consumed X:XX
   android4:
@@ -140,11 +147,8 @@ jobs:
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
           use-image-name: mohsen7s/tbb:step1.windows1
           step-image-name: mohsen7s/tbb:step1.windows2
-          run-command: |
-            cd tor-browser-build
-            make release-windows-x86_64
-            
-#            ./build.sh 'firefox' 'release' 'torbrowser-windows-x86_64' '  - filename: namecoin-etld.patch'
+          run-command: |  
+            ./build.sh 'firefox' 'release' 'torbrowser-windows-x86_64' '  - project: clang'
    
   #Consumed 2:30 
   linux1:
@@ -174,10 +178,7 @@ jobs:
           use-image-name: mohsen7s/tbb:step1.linux1
           step-image-name: mohsen7s/tbb:step1.linux2
           run-command: |
-            cd tor-browser-build
-            make release-linux-x86_64
-            
-#            ./build.sh 'firefox' 'release' 'torbrowser-linux-x86_64' '  - filename: namecoin-etld.patch'
+            ./build.sh 'firefox' 'release' 'torbrowser-linux-x86_64' '  - project: clang'
             
             
   #Consumed X:XX
@@ -209,10 +210,7 @@ jobs:
           use-image-name: mohsen7s/tbb:step1.osx1
           step-image-name: mohsen7s/tbb:step1.osx2
           run-command: |
-            cd tor-browser-build
-            make release-osx-x86_64
-            
-#            ./build.sh 'firefox' 'release' 'torbrowser-osx-x86_64' '  - filename: namecoin-etld.patch'
+            ./build.sh 'firefox' 'release' 'torbrowser-osx-x86_64' '  - project: clang'
 
 
 
