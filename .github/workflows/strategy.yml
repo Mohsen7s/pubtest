@@ -77,7 +77,7 @@ jobs:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
           use-image-name: mohsen7s/tbb:sc1
-          step-image-name: mohsen7s/tbb:sc1.mat1.{ matrix.name }}
+          step-image-name: mohsen7s/tbb:sc1.mat1.${{ matrix.name }}
           run-command: |
             cd tor-browser-build
             ${{ matrix.components }}
@@ -111,8 +111,8 @@ jobs:
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          use-image-name: mohsen7s/tbb:sc1.mat1.{ matrix.name }}
-          step-image-name: mohsen7s/tbb:sc1.mat2.{ matrix.name }}
+          use-image-name: mohsen7s/tbb:sc1.mat1.${{ matrix.name }}
+          step-image-name: mohsen7s/tbb:sc1.mat2.${{ matrix.name }}
           run-command: |
             cd tor-browser-build
             ${{ matrix.components }}
@@ -142,8 +142,8 @@ jobs:
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          use-image-name: mohsen7s/tbb:sc1.mat2.{ matrix.name }}
-          step-image-name: mohsen7s/tbb:sc1.mat3.{ matrix.name }}
+          use-image-name: mohsen7s/tbb:sc1.mat2.${{ matrix.name }}
+          step-image-name: mohsen7s/tbb:sc1.mat3.${{ matrix.name }}
           run-command: |
             cd tor-browser-build
             ${{ matrix.components }}
@@ -173,8 +173,8 @@ jobs:
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          use-image-name: mohsen7s/tbb:sc1.mat3.{ matrix.name }}
-          step-image-name: mohsen7s/tbb:sc1.mat4.{ matrix.name }}
+          use-image-name: mohsen7s/tbb:sc1.mat3.${{ matrix.name }}
+          step-image-name: mohsen7s/tbb:sc1.mat4.${{ matrix.name }}
           run-command: |
             cd tor-browser-build
             ${{ matrix.components }}
