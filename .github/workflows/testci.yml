@@ -35,11 +35,14 @@ jobs:
     strategy:
       matrix: 
         components:
-          - ['1', '2']
-          - ['3', '4']
+          - name: a
+            val: 1
+          - name: b
+            val: 2
+
 
     steps:
-    - run: echo Run ${{ matrix.components }}
+    - run: echo Run ${{ matrix.components[0].name }}
     - run: date
     - run: sleep 1
     - run: date
