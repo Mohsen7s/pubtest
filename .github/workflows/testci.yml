@@ -83,7 +83,8 @@ jobs:
       matrix: ${{ fromJson(needs.job1.outputs.matrix) }}
 
     steps:    
-    - run: echo Run ${{ matrix.steps[1].components }}
+
     - id: a
       run: echo JJOOBB ${{ job.container.id	 }}
+    - run: echo Run ${{ matrix.steps[1].components }}    
  
