@@ -42,7 +42,7 @@ jobs:
 
 
     steps:
-    - run: echo Run ${{ matrix.components[0].name }}
+    - run: echo Run ${{ matrix.components.0.name }}
     - run: date
     - run: sleep 1
     - run: date
