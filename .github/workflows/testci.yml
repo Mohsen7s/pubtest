@@ -40,5 +40,5 @@ jobs:
 
 
     steps:
-    - run: echo Run ${{ matrix.components[0] != null  }}
+    - run: echo Run ${{ format('hello {0} and {1}', matrix.components, matrix.components[0])  }}
  
