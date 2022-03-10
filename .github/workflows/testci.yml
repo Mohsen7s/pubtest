@@ -15,29 +15,18 @@ jobs:
       matrix:
         include:
           - data: 
-            - name: windows
-              target: torbrowser-windows-x86_64
-              components:
-                - mingw-w64
-                - clang
+            - "name": "windows"
+              "target": "torbrowser-windows-x86_64"
+              "components":
+                - "mingw-w64"
+                - "clang"
 
-            - name: android
-              target: torbrowser-android-armv7
-              components:
-                - android-toolchain
-                - clang
+            - "name": "android"
+              "target": "torbrowser-android-armv7"
+              "components":
+                - "android-toolchain"
+                - "clang"
 
-            - name: linux
-              target: torbrowser-linux-x86_64
-              components:
-                - gcc
-                - clang
-
-            - name: macosx
-              target: torbrowser-osx-x86_64
-              components:
-                - macosx-toolchain
-                - clang          
     outputs:
        matrix: ${{ steps.setmatrix.outputs.matrix }}
     steps:
