@@ -40,7 +40,7 @@ jobs:
     needs: job1
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJson(needs.job1.outputs.matrix) }}
+      matrix: ${{ fromJson('{"include":[{"name":"windows","target":"torbrowser-windows-x86_64","components":["mingw-w64","clang"]},{"name":"android","target":"torbrowser-android-armv7","components":["android-toolchain","clang"]}]}') }}
     steps:
-    - run: echo Run ${{ join(matrix.components, './rbm/rbm build ') }}
+    - run: echo Run ${{ join(matrix, ', ') }}
  
