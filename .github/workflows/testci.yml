@@ -15,7 +15,7 @@ jobs:
       - name: Set Dynamic Matrix
         id: setmatrix
         run: |
-          read -d '' matrixStringifiedObject << EOF
+          read -d '' matrixStringifiedObject << EOF || true
           {
             "include": [
               {
