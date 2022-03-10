@@ -36,7 +36,7 @@ jobs:
         run: |
            matrixStringifiedObject='${{ toJSON(matrix.data[0]) }}'
            echo $matrixStringifiedObject
-           echo '::set-output name=matrix::$matrixStringifiedObject'
+           echo "::set-output name=matrix::$matrixStringifiedObject"
   job2:
     needs: job1
     runs-on: ubuntu-latest
