@@ -52,32 +52,25 @@ jobs:
     runs-on: ubuntu-latest
     needs: stage1
     strategy: 
-      fail-fast: false
       matrix:
-        include:          
-          - name: windows
-            target: torbrowser-windows-x86_64
-            components: |
-              mingw-w64
-              clang
-              
+        include:
           - name: android
-            target: torbrowser-android-armv7
             components: |
-              android-toolchain
-              clang
-              
+              ./rbm/rbm build android-toolchain --target release --target torbrowser-android-armv7
+              ./rbm/rbm build clang --target release --target torbrowser-android-armv7
+          - name: windows
+            components: |
+              ./rbm/rbm build mingw-w64 --target release --target torbrowser-windows-x86_64
+              ./rbm/rbm build clang --target release --target torbrowser-windows-x86_64
           - name: linux
-            target: torbrowser-linux-x86_64
             components: |
-              gcc
-              clang
-              
+              ./rbm/rbm build gcc --target release --target torbrowser-linux-x86_64
+              ./rbm/rbm build clang --target release --target torbrowser-linux-x86_64
           - name: macosx
-            target: torbrowser-osx-x86_64
             components: |
-              macosx-toolchain
-              clang          
+              ./rbm/rbm build macosx-toolchain --target release --target torbrowser-osx-x86_64
+
+#              ./rbm/rbm build clang --target release --target torbrowser-osx-x86_64
     steps:
       - name: Build Compilers
         uses: mohsen7s/runner-prune-except-docker@main
@@ -88,40 +81,31 @@ jobs:
           step-image-name: mohsen7s/tbb:sc1.mat1.${{ matrix.name }}
           run-command: |
             cd tor-browser-build
-            ./rbm/rbm build ${{ matrix.components[0] }} --target release --target ${{ matrix.target }}
-            ./rbm/rbm build ${{ matrix.components[1] }} --target release --target ${{ matrix.target }}
+            ${{ matrix.components }}
   
 
   stage3:
     runs-on: ubuntu-latest
     needs: stage2
     strategy: 
-      fail-fast: false    
       matrix:
-        include:          
-          - name: windows
-            target: torbrowser-windows-x86_64
-            components: |
-              rust
-              node
-              
+        include:
           - name: android
-            target: torbrowser-android-armv7
             components: |
-              rust
-              node
-              
+              ./rbm/rbm build rust --target release --target torbrowser-android-armv7
+              ./rbm/rbm build node --target release --target torbrowser-android-armv7
+          - name: windows
+            components: |
+              ./rbm/rbm build rust --target release --target torbrowser-windows-x86_64
+              ./rbm/rbm build node --target release --target torbrowser-windows-x86_64
           - name: linux
-            target: torbrowser-linux-x86_64
             components: |
-              rust
-              node
-              
+              ./rbm/rbm build rust --target release --target torbrowser-linux-x86_64
+              ./rbm/rbm build node --target release --target torbrowser-linux-x86_64
           - name: macosx
-            target: torbrowser-osx-x86_64
             components: |
-              rust
-              node          
+              ./rbm/rbm build rust --target release --target torbrowser-osx-x86_64
+              ./rbm/rbm build node --target release --target torbrowser-osx-x86_64
     steps:
       - name: Build Rust And Node
         uses: mohsen7s/runner-prune-except-docker@main
@@ -132,37 +116,27 @@ jobs:
           step-image-name: mohsen7s/tbb:sc1.mat2.${{ matrix.name }}
           run-command: |
             cd tor-browser-build
-            ./rbm/rbm build ${{ matrix.components[0] }} --target release --target ${{ matrix.target }}
-            ./rbm/rbm build ${{ matrix.components[1] }} --target release --target ${{ matrix.target }}
+            ${{ matrix.components }}
   
    
   stage4:
     runs-on: ubuntu-latest
     needs: stage3
     strategy: 
-      fail-fast: false    
       matrix:
-        include:          
-          - name: windows
-            target: torbrowser-windows-x86_64
-            components: |
-              firefox
-              
+        include:
           - name: android
-            target: torbrowser-android-armv7
             components: |
-              fenix
-              
+              ./rbm/rbm build fenix --target release --target torbrowser-android-armv7
+          - name: windows
+            components: |
+              ./rbm/rbm build firefox --target release --target torbrowser-windows-x86_64
           - name: linux
-            target: torbrowser-linux-x86_64
             components: |
-              firefox
-              
+              ./rbm/rbm build firefox --target release --target torbrowser-linux-x86_64
           - name: macosx
-            target: torbrowser-osx-x86_64
             components: |
-              firefox
-              
+              ./rbm/rbm build firefox --target release --target torbrowser-osx-x86_64
     steps:
       - name: Build Firefox
         uses: mohsen7s/runner-prune-except-docker@main
@@ -173,35 +147,27 @@ jobs:
           step-image-name: mohsen7s/tbb:sc1.mat3.${{ matrix.name }}
           run-command: |
             cd tor-browser-build
-            ./rbm/rbm build ${{ matrix.components[0] }} --target release --target ${{ matrix.target }}
+            ${{ matrix.components }}
   
    
   stage5:
     runs-on: ubuntu-latest
     needs: stage4
     strategy: 
-      fail-fast: false
       matrix:
-        include:          
-          - name: windows
-            target: torbrowser-windows-x86_64
-            components: |
-              release
-              
+        include:
           - name: android
-            target: torbrowser-android-armv7
             components: |
-              release
-              
+              ./rbm/rbm build release --target release --target torbrowser-android-armv7
+          - name: windows
+            components: |
+              ./rbm/rbm build release --target release --target torbrowser-windows-x86_64
           - name: linux
-            target: torbrowser-linux-x86_64
             components: |
-              release
-              
+              ./rbm/rbm build release --target release --target torbrowser-linux-x86_64
           - name: macosx
-            target: torbrowser-osx-x86_64
             components: |
-              release      
+              ./rbm/rbm build release --target release --target torbrowser-osx-x86_64
     steps:
       - name: Build Release
         uses: mohsen7s/runner-prune-except-docker@main
@@ -212,6 +178,5 @@ jobs:
           step-image-name: mohsen7s/tbb:sc1.mat4.${{ matrix.name }}
           run-command: |
             cd tor-browser-build
-            ./rbm/rbm build ${{ matrix.components[0] }} --target release --target ${{ matrix.target }}
+            ${{ matrix.components }}
   
-   
