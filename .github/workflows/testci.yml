@@ -4,12 +4,10 @@ on:
   push :
     paths:
         - '.github/workflows/testci.yml'
-      
-      
+        
 jobs: 
   job1:
     runs-on: ubuntu-latest
-    
     strategy: 
       fail-fast: false
       matrix:
@@ -22,33 +20,62 @@ jobs:
                      ./rbm/rbm build android-toolchain --target release --target torbrowser-android-armv7
                      ./rbm/rbm build clang --target release --target torbrowser-android-armv7
                   - components: |
-                     2
-                     3
+                     ./rbm/rbm build rust --target release --target torbrowser-android-armv7
+                     ./rbm/rbm build node --target release --target torbrowser-android-armv7
+                  - components: |
+                     ./rbm/rbm build fenix --target release --target torbrowser-android-armv7
+                  - components: |
+                     ./rbm/rbm build release --target release --target torbrowser-android-armv7
               - name: windows
-                components: |
-                  ./rbm/rbm build mingw-w64 --target release --target torbrowser-windows-x86_64
-                  ./rbm/rbm build clang --target release --target torbrowser-windows-x86_64
+                steps:
+                  - components: |
+                     ./rbm/rbm build mingw-w64 --target release --target torbrowser-windows-x86_64
+                     ./rbm/rbm build clang --target release --target torbrowser-windows-x86_64
+                  - components: |
+                     ./rbm/rbm build rust --target release --target torbrowser-windows-x86_64
+                     ./rbm/rbm build node --target release --target torbrowser-windows-x86_64
+                  - components: |
+                     ./rbm/rbm build firefox --target release --target torbrowser-windows-x86_64
+                  - components: |
+                     ./rbm/rbm build release --target release --target torbrowser-windows-x86_64
               - name: linux
-                components: |
-                  ./rbm/rbm build gcc --target release --target torbrowser-linux-x86_64
-                  ./rbm/rbm build clang --target release --target torbrowser-linux-x86_64
+                steps:
+                  - components: |
+                     ./rbm/rbm build gcc --target release --target torbrowser-linux-x86_64
+                     ./rbm/rbm build clang --target release --target torbrowser-linux-x86_64
+                  - components: |
+                     ./rbm/rbm build rust --target release --target torbrowser-linux-x86_64
+                     ./rbm/rbm build node --target release --target torbrowser-linux-x86_64
+                  - components: |
+                     ./rbm/rbm build firefox --target release --target torbrowser-linux-x86_64
+                  - components: |
+                     ./rbm/rbm build release --target release --target torbrowser-linux-x86_64
               - name: macosx
-                components: |
-                  ./rbm/rbm build macosx-toolchain --target release --target torbrowser-osx-x86_64
+                steps:
+                  - components: |
+                     ./rbm/rbm build macosx-toolchain --target release --target torbrowser-osx-x86_64
+#                     ./rbm/rbm build clang --target release --target torbrowser-osx-x86_64
+                  - components: |
+                     ./rbm/rbm build rust --target release --target torbrowser-osx-x86_64
+                     ./rbm/rbm build node --target release --target torbrowser-osx-x86_64
+                  - components: |
+                     ./rbm/rbm build firefox --target release --target torbrowser-osx-x86_64
+                  - components: |
+                     ./rbm/rbm build release --target release --target torbrowser-osx-x86_64
 
     outputs:
        matrix: ${{ steps.setmatrix.outputs.matrix }}
     steps:
       - name: Set Dynamic Matrix
         id: setmatrix
-        run: |
-          matrixStringifiedObject='${{ toJSON(matrix.data[0]) }}'
-          echo $matrixStringifiedObject
-          matrixStringifiedObject="${matrixStringifiedObject//'%'/'%25'}"
-          matrixStringifiedObject="${matrixStringifiedObject//$'\n'/'%0A'}"
-          matrixStringifiedObject="${matrixStringifiedObject//$'\r'/'%0D'}"
-          echo $matrixStringifiedObject
-          echo "::set-output name=matrix::$matrixStringifiedObject"
+#this patch inability of github workflow to parse multiline strings
+        run: |        
+          yamlAsJson='${{ toJSON(matrix.data[0]) }}'
+          yamlAsJson="${yamlAsJson//'%'/'%25'}"
+          yamlAsJson="${yamlAsJson//$'\n'/'%0A'}"
+          yamlAsJson="${yamlAsJson//$'\r'/'%0D'}"
+          echo "::set-output name=matrix::$yamlAsJson"
+          
   job2:
     needs: job1
     runs-on: ubuntu-latest
