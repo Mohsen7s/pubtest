@@ -15,17 +15,18 @@ jobs:
       matrix:
         include:
           - data: 
-            - "name": "windows"
-              "target": "torbrowser-windows-x86_64"
-              "components":
-                - "mingw-w64"
-                - "clang"
+            - include:
+              - "name": "windows"
+                "target": "torbrowser-windows-x86_64"
+                "components":
+                  - "mingw-w64"
+                  - "clang"
 
-            - "name": "android"
-              "target": "torbrowser-android-armv7"
-              "components":
-                - "android-toolchain"
-                - "clang"
+              - "name": "android"
+                "target": "torbrowser-android-armv7"
+                "components":
+                  - "android-toolchain"
+                  - "clang"
 
     outputs:
        matrix: ${{ steps.setmatrix.outputs.matrix }}
@@ -33,7 +34,7 @@ jobs:
       - name: Set Dynamic Matrix
         id: setmatrix
         run: |
-           matrixStringifiedObject="${{ toJSON(matrix.data) }}"
+           matrixStringifiedObject="${{ toJSON(matrix.data[0]) }}"
            echo "::set-output name=matrix::$matrixStringifiedObject"
   job2:
     needs: job1
