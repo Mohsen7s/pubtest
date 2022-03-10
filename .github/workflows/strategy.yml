@@ -82,6 +82,7 @@ jobs:
           run-command: |
             cd tor-browser-build
             ${{ matrix.components }}
+            rm -fr logs/
   
 
   stage3:
