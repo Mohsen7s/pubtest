@@ -50,5 +50,5 @@ jobs:
 #      matrix: ${{ fromJson('{"include":[{"name":"windows","target":"torbrowser-windows-x86_64","components":["mingw-w64","clang"]},{"name":"android","target":"torbrowser-android-armv7","components":["android-toolchain","clang"]}]}') }}
     steps:
 #    - run: echo ${{ needs.job1.outputs.matrix }}
-    - run: echo Run ${{ join(matrix, ', ') }}
+    - run: echo Run ${{ matrix.name }}
  
