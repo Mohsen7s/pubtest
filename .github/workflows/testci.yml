@@ -1,5 +1,4 @@
-
-name: CI Test Env
+name: Sample Run Include Syntax Json Format
 
 on:
   push :
@@ -8,23 +7,23 @@ on:
       
       
 jobs:
-  stage2:
+  job1:
     runs-on: ubuntu-latest
-    strategy: 
-      fail-fast: false
-      matrix:
-        include:          
-          - name: windows
-            target: torbrowser-windows-x86_64
-            c1: mingw-w64
-            c2: clang
-              
-
-              
+    outputs:
+       matrix: ${{ steps.setmatrix.outputs.matrix }}
     steps:
-      - name: echo
+      - name: Set Dynamic Matrix
+        id: setmatrix
         run: |
-         echo ${{ matrix.c1 }} --target release --target ${{ matrix.target }}
-         echo ${{ matrix.c2 }} --target release --target ${{ matrix.target }}
- 
-         
+           matrixStringifiedObject="{\"include\":[{\"run\":\"run1\"},{\"run\":\"run2\"}]}"
+           echo "::set-output name=matrix::$matrixStringifiedObject"
+  job2:
+    needs: job1
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.job1.outputs.matrix) }}
+    steps:
+    - run: echo Run ${{ matrix.run }}
+    - run: date
+    - run: sleep 1
+    - run: date
