@@ -8,38 +8,48 @@ on:
       
       
 jobs:
+  stage2:
+    runs-on: ubuntu-latest
+    strategy: 
+      fail-fast: false
+      matrix:
+        include:          
+          - name: windows
+            target: torbrowser-windows-x86_64
+            components: |
+              mingw-w64
+              clang
+              
+          - name: android
+            target: torbrowser-android-armv7
+            components: |
+              android-toolchain
+              clang
+              
+          - name: linux
+            target: torbrowser-linux-x86_64
+            components: |
+              gcc
+              clang
+              
+          - name: macosx
+            target: torbrowser-osx-x86_64
+            components: |
+              macosx-toolchain
+              clang        
+    steps:
+      - name: echo
+        run: |
+          echo 1
   build:
-    name: Build Centos (${{ matrix.OS_VERSION }})
+    name: Build Centos 
     runs-on: ubuntu-latest
     steps:
 
     - name: build
       run: |
-        cd
-
-      
-    - name: Maximize build space
-      uses: easimon/maximize-build-space@master
-      with:
-        root-reserve-mb: 500
-        swap-size-mb: 8
-        temp-reserve-mb: 8
-        remove-dotnet: 'true'
-        remove-android: 'true'
-        remove-haskell: 'true'
-        
-    - name: build 3
-      run: |
-        df -h
-        cat /etc/docker/daemon.json
-        echo $'{\n  "graph": "'$GITHUB_WORKSPACE'" }'
-        echo $'{\n  "graph": "'$GITHUB_WORKSPACE'" }' | sudo tee /etc/docker/daemon.json
-        cat /etc/docker/daemon.json
-        #echo 'DOCKER_OPTS="-dns 8.8.8.8 -dns 8.8.4.4 -g '$GITHUB_WORKSPACE'"' | sudo tee /etc/default/docker > /dev/null
-        sudo service docker restart
-        sleep 5
-        docker pull mohsen7s/tbb:stage3
-        
-
-
-        
+         echo ${{ matrix.components[0] }} --target release --target ${{ matrix.target }}
+         echo ${{ matrix.components[1] }} --target release --target ${{ matrix.target }}
+         echo ${{ matrix.name }}
+         echo ${{ matrix.name }}
+         
