@@ -16,17 +16,17 @@ jobs:
         include:
           - data: 
             - include:
-              - "name": "windows"
-                "target": "torbrowser-windows-x86_64"
-                "components":
-                  - "mingw-w64"
-                  - "clang"
+              - name: windows
+                target: torbrowser-windows-x86_64
+                components:
+                  - mingw-w64
+                  - clang
 
-              - "name": "android"
-                "target": "torbrowser-android-armv7"
-                "components":
-                  - "android-toolchain"
-                  - "clang"
+              - name: android
+                target: torbrowser-android-armv7
+                components:
+                  - android-toolchain
+                  - clang
 
     outputs:
        matrix: ${{ steps.setmatrix.outputs.matrix }}
