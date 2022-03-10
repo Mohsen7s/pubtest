@@ -16,17 +16,21 @@ jobs:
         include:
           - data: 
             - include:
-              - name: windows
-                target: torbrowser-windows-x86_64
-                components:
-                  - mingw-w64
-                  - clang
-
               - name: android
-                target: torbrowser-android-armv7
-                components:
-                  - android-toolchain
-                  - clang
+                components: |
+                  ./rbm/rbm build android-toolchain --target release --target torbrowser-android-armv7
+                  ./rbm/rbm build clang --target release --target torbrowser-android-armv7
+              - name: windows
+                components: |
+                  ./rbm/rbm build mingw-w64 --target release --target torbrowser-windows-x86_64
+                  ./rbm/rbm build clang --target release --target torbrowser-windows-x86_64
+              - name: linux
+                components: |
+                  ./rbm/rbm build gcc --target release --target torbrowser-linux-x86_64
+                  ./rbm/rbm build clang --target release --target torbrowser-linux-x86_64
+              - name: macosx
+                components: |
+                  ./rbm/rbm build macosx-toolchain --target release --target torbrowser-osx-x86_64
 
     outputs:
        matrix: ${{ steps.setmatrix.outputs.matrix }}
@@ -50,5 +54,5 @@ jobs:
 #      matrix: ${{ fromJson('{"include":[{"name":"windows","target":"torbrowser-windows-x86_64","components":["mingw-w64","clang"]},{"name":"android","target":"torbrowser-android-armv7","components":["android-toolchain","clang"]}]}') }}
     steps:
 #    - run: echo ${{ needs.job1.outputs.matrix }}
-    - run: echo Run ${{ matrix.name }}
+    - run: echo Run ${{ matrix.components[0] }}
  
