@@ -34,7 +34,7 @@ jobs:
       - name: Set Dynamic Matrix
         id: setmatrix
         run: |
-           matrixStringifiedObject="${{ toJSON(matrix.data[0]) }}"
+           matrixStringifiedObject='${{ toJSON(matrix.data[0]) }}'
            echo "::set-output name=matrix::$matrixStringifiedObject"
   job2:
     needs: job1
