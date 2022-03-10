@@ -15,7 +15,7 @@ jobs:
       - name: Set Dynamic Matrix
         id: setmatrix
         run: |
-          read -d '' matrixStringifiedObject << EOF || true
+          matrixStringifiedObject="
           {
             "include": [
               {
@@ -26,6 +26,8 @@ jobs:
               }
             ]
           }
+          " 
+
           EOF
           echo "::set-output name=matrix::$matrixStringifiedObject"
   job2:
