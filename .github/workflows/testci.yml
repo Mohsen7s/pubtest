@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - includeX: 
+          - include: 
             - name: windows
               target: torbrowser-windows-x86_64
               components:
@@ -44,7 +44,7 @@ jobs:
       - name: Set Dynamic Matrix
         id: setmatrix
         run: |
-           matrixStringifiedObject="${{ toJSON(matrix.output) }}"
+           matrixStringifiedObject="${{ toJSON(matrix.include) }}"
            echo "::set-output name=matrix::$matrixStringifiedObject"
   job2:
     needs: job1
