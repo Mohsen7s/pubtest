@@ -34,9 +34,13 @@ jobs:
       - name: Set Dynamic Matrix
         id: setmatrix
         run: |
-           matrixStringifiedObject='${{ toJSON(matrix.data[0]) }}'
-           echo $matrixStringifiedObject
-           echo "::set-output name=matrix::$matrixStringifiedObject"
+          matrixStringifiedObject='${{ toJSON(matrix.data[0]) }}'
+          echo $matrixStringifiedObject
+          matrixStringifiedObject="${matrixStringifiedObject//'%'/'%25'}"
+          matrixStringifiedObject="${matrixStringifiedObject//$'\n'/'%0A'}"
+          matrixStringifiedObject="${matrixStringifiedObject//$'\r'/'%0D'}"
+          echo $matrixStringifiedObject
+          echo "::set-output name=matrix::$matrixStringifiedObject"
   job2:
     needs: job1
     runs-on: ubuntu-latest
