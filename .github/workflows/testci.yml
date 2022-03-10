@@ -17,9 +17,10 @@ jobs:
           - data: 
             - include:
               - name: android
-                components: |
-                  ./rbm/rbm build android-toolchain --target release --target torbrowser-android-armv7
-                  ./rbm/rbm build clang --target release --target torbrowser-android-armv7
+                steps:
+                  - components: |
+                    ./rbm/rbm build android-toolchain --target release --target torbrowser-android-armv7
+                    ./rbm/rbm build clang --target release --target torbrowser-android-armv7
               - name: windows
                 components: |
                   ./rbm/rbm build mingw-w64 --target release --target torbrowser-windows-x86_64
@@ -51,8 +52,6 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.job1.outputs.matrix) }}
 
-#      matrix: ${{ fromJson('{"include":[{"name":"windows","target":"torbrowser-windows-x86_64","components":["mingw-w64","clang"]},{"name":"android","target":"torbrowser-android-armv7","components":["android-toolchain","clang"]}]}') }}
     steps:
-#    - run: echo ${{ needs.job1.outputs.matrix }}
-    - run: echo Run ${{ matrix.components[0] }}
+    - run: echo Run ${{ matrix.name }}
  
