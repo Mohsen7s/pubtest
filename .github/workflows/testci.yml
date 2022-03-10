@@ -34,13 +34,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: 
-        a: [one, two]
-        b:
+        components:
           - ['1', '2']
           - ['3', '4']
 
     steps:
-    - run: echo Run ${{ matrix.run }}
+    - run: echo Run ${{ matrix.components }}
     - run: date
     - run: sleep 1
     - run: date
