@@ -28,7 +28,6 @@ jobs:
           }
           " 
 
-          EOF
           echo "::set-output name=matrix::$matrixStringifiedObject"
   job2:
     needs: job1
