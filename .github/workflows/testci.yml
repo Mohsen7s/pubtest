@@ -16,34 +16,15 @@ jobs:
         include:          
           - name: windows
             target: torbrowser-windows-x86_64
-            components: |
-              mingw-w64
-              clang
+            c1: mingw-w64
+            c2: clang
               
-          - name: android
-            target: torbrowser-android-armv7
-            components: |
-              android-toolchain
-              clang
-              
-          - name: linux
-            target: torbrowser-linux-x86_64
-            components: |
-              gcc
-              clang
-              
-          - name: macosx
-            target: torbrowser-osx-x86_64
-            components: ${{ toJSON([clazzng, gzzcc]) }}
-
-
 
               
     steps:
       - name: echo
         run: |
-         echo ${{ fromJSON(matrix.components) }} --target release --target ${{ matrix.target }}
-         echo ${{ matrix.components }} --target release --target ${{ matrix.target }}
-         echo ${{ matrix.name }}
-         echo ${{ matrix.name }}
+         echo ${{ matrix.c1 }} --target release --target ${{ matrix.target }}
+         echo ${{ matrix.c2 }} --target release --target ${{ matrix.target }}
+ 
          
