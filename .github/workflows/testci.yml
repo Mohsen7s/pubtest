@@ -40,5 +40,5 @@ jobs:
 
 
     steps:
-    - run: echo Run ${{ format('hello {0} and {1}', matrix.components, matrix.components[0])  }}
+    - run: echo Run ${{ join(matrix.components, './rbm/rbm build ') }}
  
