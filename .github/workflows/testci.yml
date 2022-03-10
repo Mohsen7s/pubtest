@@ -34,13 +34,15 @@ jobs:
               
           - name: macosx
             target: torbrowser-osx-x86_64
-            components: |
-              macosx-toolchain
-              clang        
+            components: ${{ toJSON([clazzng, gzzcc]) }}
+
+
+
+              
     steps:
       - name: echo
         run: |
-         echo ${{ matrix.components }} --target release --target ${{ matrix.target }}
+         echo ${{ fromJSON(matrix.components) }} --target release --target ${{ matrix.target }}
          echo ${{ matrix.components }} --target release --target ${{ matrix.target }}
          echo ${{ matrix.name }}
          echo ${{ matrix.name }}
