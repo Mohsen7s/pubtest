@@ -40,14 +40,6 @@ jobs:
     steps:
       - name: echo
         run: |
-          echo 1
-  build:
-    name: Build Centos 
-    runs-on: ubuntu-latest
-    steps:
-
-    - name: build
-      run: |
          echo ${{ matrix.components[0] }} --target release --target ${{ matrix.target }}
          echo ${{ matrix.components[1] }} --target release --target ${{ matrix.target }}
          echo ${{ matrix.name }}
