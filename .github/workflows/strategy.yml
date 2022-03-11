@@ -1,4 +1,4 @@
-name: Tree tbb
+name: Default Android Makefile
 
 on:
   push :
