@@ -18,60 +18,60 @@ jobs:
         include:
           - data: 
             - include:
-#              - name: android
+              - name: android
+                steps:
+                  - components: |
+                     ./rbm/rbm build android-toolchain --target release --target torbrowser-android-armv7
+                  - components: |
+                     ./rbm/rbm build clang --target release --target torbrowser-android-armv7
+                  - components: |
+                     ./rbm/rbm build rust --target release --target torbrowser-android-armv7
+                     ./rbm/rbm build node --target release --target torbrowser-android-armv7
+                  - components: |
+                     ./rbm/rbm build android-components --target release --target torbrowser-android-armv7
+#                     ./rbm/rbm build fenix --target release --target torbrowser-android-armv7
+                  - components: |
+                     ./rbm/rbm build release --target release --target torbrowser-android-armv7
+#              - name: windows
 #                steps:
 #                  - components: |
-#                     ./rbm/rbm build android-toolchain --target release --target torbrowser-android-armv7
+#                     ./rbm/rbm build mingw-w64 --target release --target torbrowser-windows-x86_64
 #                  - components: |
-#                     ./rbm/rbm build clang --target release --target torbrowser-android-armv7
+#                     ./rbm/rbm build clang --target release --target torbrowser-windows-x86_64
 #                  - components: |
-#                     ./rbm/rbm build rust --target release --target torbrowser-android-armv7
-#                     ./rbm/rbm build node --target release --target torbrowser-android-armv7
+#                     ./rbm/rbm build rust --target release --target torbrowser-windows-x86_64
+#                     ./rbm/rbm build node --target release --target torbrowser-windows-x86_64
 #                  - components: |
-#                     ./rbm/rbm build android-components --target release --target torbrowser-android-armv7
-##                     ./rbm/rbm build fenix --target release --target torbrowser-android-armv7
+#                     ./rbm/rbm build firefox --target release --target torbrowser-windows-x86_64
 #                  - components: |
-#                     ./rbm/rbm build release --target release --target torbrowser-android-armv7
-              - name: windows
-                steps:
-                  - components: |
-                     ./rbm/rbm build mingw-w64 --target release --target torbrowser-windows-x86_64
-                  - components: |
-                     ./rbm/rbm build clang --target release --target torbrowser-windows-x86_64
-                  - components: |
-                     ./rbm/rbm build rust --target release --target torbrowser-windows-x86_64
-                     ./rbm/rbm build node --target release --target torbrowser-windows-x86_64
-                  - components: |
-                     ./rbm/rbm build firefox --target release --target torbrowser-windows-x86_64
-                  - components: |
-                     ./rbm/rbm build release --target release --target torbrowser-windows-x86_64
-              - name: linux
-                steps:
-                  - components: |
-                     ./rbm/rbm build gcc --target release --target torbrowser-linux-x86_64
-                  - components: |
-                     ./rbm/rbm build clang --target release --target torbrowser-linux-x86_64
-                  - components: |
-                     ./rbm/rbm build rust --target release --target torbrowser-linux-x86_64
-                     ./rbm/rbm build node --target release --target torbrowser-linux-x86_64
-                  - components: |
-                     ./rbm/rbm build firefox --target release --target torbrowser-linux-x86_64
-                  - components: |
-                     ./rbm/rbm build release --target release --target torbrowser-linux-x86_64
-              - name: macosx
-                steps:
-                  - components: |
-                     ./rbm/rbm build macosx-toolchain --target release --target torbrowser-osx-x86_64
-                  - components: |
-                     ./rbm/rbm build clang --target release --target torbrowser-osx-x86_64
-                  - components: |
-                     ./rbm/rbm build rust --target release --target torbrowser-osx-x86_64
-                     ./rbm/rbm build node --target release --target torbrowser-osx-x86_64
-                  - components: |
-                     ./rbm/rbm build firefox --target release --target torbrowser-osx-x86_64
-                  - components: |
-                     ./rbm/rbm build release --target release --target torbrowser-osx-x86_64
-
+#                     ./rbm/rbm build release --target release --target torbrowser-windows-x86_64
+#              - name: linux
+#                steps:
+#                  - components: |
+#                     ./rbm/rbm build gcc --target release --target torbrowser-linux-x86_64
+#                  - components: |
+#                     ./rbm/rbm build clang --target release --target torbrowser-linux-x86_64
+#                  - components: |
+#                     ./rbm/rbm build rust --target release --target torbrowser-linux-x86_64
+#                     ./rbm/rbm build node --target release --target torbrowser-linux-x86_64
+#                  - components: |
+#                     ./rbm/rbm build firefox --target release --target torbrowser-linux-x86_64
+#                  - components: |
+#                     ./rbm/rbm build release --target release --target torbrowser-linux-x86_64
+#              - name: macosx
+#                steps:
+#                  - components: |
+#                     ./rbm/rbm build macosx-toolchain --target release --target torbrowser-osx-x86_64
+#                  - components: |
+#                     ./rbm/rbm build clang --target release --target torbrowser-osx-x86_64
+#                  - components: |
+#                     ./rbm/rbm build rust --target release --target torbrowser-osx-x86_64
+#                     ./rbm/rbm build node --target release --target torbrowser-osx-x86_64
+#                  - components: |
+#                     ./rbm/rbm build firefox --target release --target torbrowser-osx-x86_64
+#                  - components: |
+#                     ./rbm/rbm build release --target release --target torbrowser-osx-x86_64
+#
     outputs:
        matrix: ${{ steps.setmatrix.outputs.matrix }}
     steps:
