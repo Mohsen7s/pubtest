@@ -28,7 +28,8 @@ jobs:
                      ./rbm/rbm build rust --target release --target torbrowser-android-armv7
                      ./rbm/rbm build node --target release --target torbrowser-android-armv7
                   - components: |
-                     ./rbm/rbm build fenix --target release --target torbrowser-android-armv7
+                     ./rbm/rbm build android-components --target release --target torbrowser-android-armv7
+#                     ./rbm/rbm build fenix --target release --target torbrowser-android-armv7
                   - components: |
                      ./rbm/rbm build release --target release --target torbrowser-android-armv7
               - name: windows
