@@ -1,4 +1,4 @@
-name: Services Test
+name: Component Test
 
 on:
   push :
@@ -22,9 +22,9 @@ jobs:
                 steps:
                   - components: |
                      ./rbm/rbm build android-toolchain --target release --target torbrowser-android-armv7
+                     ./rbm/rbm build android-components --step get_gradle_dependencies_list --target release --target torbrowser-android-armv7                     
 #                     ./rbm/rbm build fenix --step get_gradle_dependencies_list --target release --target torbrowser-android-armv7                     
-#                     ./rbm/rbm build android-components --step get_gradle_dependencies_list --target release --target torbrowser-android-armv7                     
-                     ./rbm/rbm build application-services --step get_gradle_dependencies_list --target release --target torbrowser-android-armv7                                          
+#                     ./rbm/rbm build application-services --step get_gradle_dependencies_list --target release --target torbrowser-android-armv7                                          
                   - components: |
                      ./rbm/rbm build clang --target release --target torbrowser-android-armv7
                   - components: |
@@ -137,7 +137,7 @@ jobs:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
           use-image-name: mohsen7s/tbb:sc1
-          step-image-name: mohsen7s/tbb:sc1.servs.0.${{ matrix.name }}
+          step-image-name: mohsen7s/tbb:sc1.comps.0.${{ matrix.name }}
           run-command: |
             cd tor-browser-build
             ${{ matrix.steps[0].components }}
@@ -155,8 +155,8 @@ jobs:
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          use-image-name: mohsen7s/tbb:sc1.servs.0.${{ matrix.name }}
-          step-image-name: mohsen7s/tbb:sc1.servs.1.${{ matrix.name }}
+          use-image-name: mohsen7s/tbb:sc1.comps.0.${{ matrix.name }}
+          step-image-name: mohsen7s/tbb:sc1.comps.1.${{ matrix.name }}
           run-command: |
             cd tor-browser-build
             ${{ matrix.steps[1].components }}
@@ -174,8 +174,8 @@ jobs:
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          use-image-name: mohsen7s/tbb:sc1.servs.1.${{ matrix.name }}
-          step-image-name: mohsen7s/tbb:sc1.servs.2.${{ matrix.name }}
+          use-image-name: mohsen7s/tbb:sc1.comps.1.${{ matrix.name }}
+          step-image-name: mohsen7s/tbb:sc1.comps.2.${{ matrix.name }}
           run-command: |
             cd tor-browser-build
             ${{ matrix.steps[2].components }}
@@ -193,8 +193,8 @@ jobs:
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          use-image-name: mohsen7s/tbb:sc1.servs.2.${{ matrix.name }}
-          step-image-name: mohsen7s/tbb:sc1.servs.3.${{ matrix.name }}
+          use-image-name: mohsen7s/tbb:sc1.comps.2.${{ matrix.name }}
+          step-image-name: mohsen7s/tbb:sc1.comps.3.${{ matrix.name }}
           run-command: |
             cd tor-browser-build
             ${{ matrix.steps[3].components }}
@@ -210,8 +210,8 @@ jobs:
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          use-image-name: mohsen7s/tbb:sc1.servs.3.${{ matrix.name }}
-          step-image-name: mohsen7s/tbb:sc1.servs.4.${{ matrix.name }}
+          use-image-name: mohsen7s/tbb:sc1.comps.3.${{ matrix.name }}
+          step-image-name: mohsen7s/tbb:sc1.comps.4.${{ matrix.name }}
           run-command: |
             cd tor-browser-build
             ${{ matrix.steps[4].components }}
