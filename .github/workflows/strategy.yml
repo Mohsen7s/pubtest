@@ -86,9 +86,9 @@ jobs:
           
   stage1:
     runs-on: ubuntu-latest
+    name: Build Fetch
     steps:
-      - name: Build Fetch
-        uses: mohsen7s/runner-prune-except-docker@main
+      - uses: mohsen7s/runner-prune-except-docker@main
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -124,11 +124,11 @@ jobs:
   stage2:
     runs-on: ubuntu-latest
     needs: [stage1, timestrategy]
+    name: Build Compilers
     strategy:
       matrix: ${{ fromJson(needs.timestrategy.outputs.matrix) }}
     steps:
-      - name: Build Compilers
-        uses: mohsen7s/runner-prune-except-docker@main
+      - uses: mohsen7s/runner-prune-except-docker@main
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -143,11 +143,11 @@ jobs:
   stage3:
     runs-on: ubuntu-latest
     needs: [stage2, timestrategy]
+    name: Build Clang
     strategy:
       matrix: ${{ fromJson(needs.timestrategy.outputs.matrix) }}
     steps:
-      - name: Build Clang
-        uses: mohsen7s/runner-prune-except-docker@main
+      - uses: mohsen7s/runner-prune-except-docker@main
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -162,11 +162,11 @@ jobs:
   stage4:
     runs-on: ubuntu-latest
     needs: [stage3, timestrategy]
+    name: Build Rust And Node
     strategy:
       matrix: ${{ fromJson(needs.timestrategy.outputs.matrix) }}
     steps:
-      - name: Build Rust And Node
-        uses: mohsen7s/runner-prune-except-docker@main
+      - uses: mohsen7s/runner-prune-except-docker@main
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -180,11 +180,12 @@ jobs:
   stage5:
     runs-on: ubuntu-latest
     needs: [stage4, timestrategy]
+    name: Build Firefox
+
     strategy:
       matrix: ${{ fromJson(needs.timestrategy.outputs.matrix) }}
     steps:
-      - name: Build Firefox
-        uses: mohsen7s/runner-prune-except-docker@main
+      - uses: mohsen7s/runner-prune-except-docker@main
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -197,11 +198,11 @@ jobs:
   stage6:
     runs-on: ubuntu-latest
     needs: [stage5, timestrategy]
+    name: Build Release
     strategy:
       matrix: ${{ fromJson(needs.timestrategy.outputs.matrix) }}
     steps:
-      - name: Build Release
-        uses: mohsen7s/runner-prune-except-docker@main
+      - uses: mohsen7s/runner-prune-except-docker@main
         with:
           docker-username: ${{ secrets.DOCKERHUB_USERNAME }}
           docker-password: ${{ secrets.DOCKERHUB_PASSWORD }}
