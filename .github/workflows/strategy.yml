@@ -26,15 +26,18 @@ jobs:
 #                     ./rbm/rbm build application-services --step get_gradle_dependencies_list --target release --target torbrowser-android-armv7                                          
 #                     ./rbm/rbm build android-components --step get_gradle_dependencies_list --target release --target torbrowser-android-armv7                     
 #                     ./rbm/rbm build fenix --step get_gradle_dependencies_list --target release --target torbrowser-android-armv7                     
-                  - components: |
+                  - components: |                  
                       make get_gradle_dependencies_list-android-components
+#                     this is completely useless 3 minutes of run                      
 #                     ./rbm/rbm build clang --target release --target torbrowser-android-armv7
                   - components: |
                       make get_gradle_dependencies_list-fenix
 #                     ./rbm/rbm build rust --target release --target torbrowser-android-armv7
 #                     ./rbm/rbm build node --target release --target torbrowser-android-armv7
                   - components: |
-                     ./rbm/rbm build fenix --target release --target torbrowser-android-armv7                      
+                     ./rbm/rbm build clang --target release --target torbrowser-android-armv7
+#                     ./rbm/rbm build fenix --target release --target torbrowser-android-armv7                      
+#                     build fenix starts to build clang, so better to seperate it                     
 #                     ./rbm/rbm build android-components --target release --target torbrowser-android-armv7
                   - components: |
                      ./rbm/rbm build release --target release --target torbrowser-android-armv7
