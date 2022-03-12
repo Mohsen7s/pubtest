@@ -1,10 +1,9 @@
-name: Default Android Makefile
+name: Default Android Makefile Removed Image
 #increase build size
 on:
   push :
     paths:
         - '.github/workflows/strategy.yml'
-
 
 env:
   DOCKER_BUILDKIT: 1
