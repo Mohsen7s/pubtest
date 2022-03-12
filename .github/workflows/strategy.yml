@@ -6,7 +6,6 @@ on:
         - '.github/workflows/strategy.yml'
 
 
-
 env:
   DOCKER_BUILDKIT: 1
   DEBIAN_FRONTEND: noninteractive
