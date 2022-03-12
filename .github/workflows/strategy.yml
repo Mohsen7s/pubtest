@@ -42,7 +42,7 @@ jobs:
 #                     build fenix starts to build clang, so better to seperate it                     
 #                     ./rbm/rbm build android-components --target release --target torbrowser-android-armv7
                   - components: |
-                     ./rbm/rbm build release --target release --target torbrowser-android-armv7
+                     make get_gradle_dependencies_list-fenix
 #              - name: windows
 #                steps:
 #                  - components: |
