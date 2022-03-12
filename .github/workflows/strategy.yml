@@ -221,6 +221,7 @@ jobs:
           use-image-name: mohsen7s/tbb:sc1.defand.3.${{ matrix.name }}
           step-image-name: mohsen7s/tbb:sc1.defand.4.${{ matrix.name }}
           run-command: |
+            (for i in {1..72}; do df -h ; top -b -n 1; sleep 300; done) & echo true           
             cd tor-browser-build
             ${{ matrix.steps[4].components }}
             rm -fr logs/  
