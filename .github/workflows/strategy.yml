@@ -35,7 +35,8 @@ jobs:
 #                     ./rbm/rbm build rust --target release --target torbrowser-android-armv7
 #                     ./rbm/rbm build node --target release --target torbrowser-android-armv7
                   - components: |
-                     ./rbm/rbm build clang --target release --target torbrowser-android-armv7
+                     ./rbm/rbm build node --target release --target torbrowser-android-armv7
+                     ./rbm/rbm build clang --target release --target torbrowser-android-armv7                     
 #                     ./rbm/rbm build fenix --target release --target torbrowser-android-armv7                      
 #                     build fenix starts to build clang, so better to seperate it                     
 #                     ./rbm/rbm build android-components --target release --target torbrowser-android-armv7
