@@ -141,7 +141,7 @@ jobs:
           run-command: |
             cd tor-browser-build
             ${{ matrix.steps[0].components }}
-            rm -fr logs/
+            rm -fr logs/ out/container-image 
   
 
   stage3:
@@ -160,7 +160,7 @@ jobs:
           run-command: |
             cd tor-browser-build
             ${{ matrix.steps[1].components }}
-            rm -fr logs/
+            rm -fr logs/ out/container-image 
   
    
   stage4:
@@ -179,7 +179,7 @@ jobs:
           run-command: |
             cd tor-browser-build
             ${{ matrix.steps[2].components }}
-            rm -fr logs/  
+            rm -fr logs/ out/container-image 
    
   stage5:
     runs-on: ubuntu-latest
@@ -198,7 +198,7 @@ jobs:
           run-command: |
             cd tor-browser-build
             ${{ matrix.steps[3].components }}
-            rm -fr logs/  
+            rm -fr logs/ out/container-image 
   stage6:
     runs-on: ubuntu-latest
     needs: [stage5, timestrategy]
