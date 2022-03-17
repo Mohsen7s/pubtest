@@ -19,6 +19,23 @@ jobs:
         include:
           - data: 
             - include:
+              - name: test
+                steps:
+                  - components: |
+                     ./rbm/rbm build macosx-toolchain --target release --target torbrowser-osx-x86_64
+
+                  - components: |
+                     ./rbm/rbm build mingw-w64 --target release --target torbrowser-windows-x86_64
+                     ./rbm/rbm build gcc --target release --target torbrowser-linux-x86_64
+                     ./rbm/rbm build android-toolchain --target release --target torbrowser-android-armv7
+
+                  - components: |
+                     ./rbm/rbm build clang --target release --target torbrowser-android-armv7
+                  - components: |
+                     ./rbm/rbm build clang --target release --target torbrowser-windows-x86_64
+                  - components: |
+                     ./rbm/rbm build clang --target release --target torbrowser-linux-x86_64
+                     
               - name: android
                 steps:
                   - components: |
