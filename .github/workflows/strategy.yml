@@ -17,25 +17,7 @@ jobs:
       matrix:
         include:
           - data: 
-            - include:
-              - name: fetcher
-                steps:
-                  - components: |
-                     git fetch
-                     git checkout tbb-11.0.8-build1
-                     make fetch
-
-
-                  - components: |
-                     ls
-
-                  - components: |
-                     ls
-                  - components: |
-                     ls
-                  - components: |
-                     ls
-                                 
+            - include:   
               - name: test
                 steps:
                   - components: |
@@ -60,8 +42,11 @@ jobs:
 #                     Rust is compiled here                       
 #                     ./rbm/rbm build android-toolchain --target release --target torbrowser-android-armv7
                   - components: |                  
-                     ./rbm/rbm build node --target release --target torbrowser-android-armv7
-                     ./rbm/rbm build clang --target release --target torbrowser-android-armv7
+                      git fetch
+                      git checkout tbb-11.0.8-build1
+                      make fetch
+#                     ./rbm/rbm build node --target release --target torbrowser-android-armv7
+#                     ./rbm/rbm build clang --target release --target torbrowser-android-armv7
 #                      make get_gradle_dependencies_list-fenix
                   - components: |
                      ./rbm/rbm build geckoview --target release --target torbrowser-android-armv7                      
