@@ -14,7 +14,6 @@ jobs:
   timestrategy:
     runs-on: ubuntu-latest
     strategy: 
-      fail-fast: false
       matrix:
         include:
           - data: 
@@ -147,6 +146,7 @@ jobs:
     needs: [stage1, timestrategy]
     name: Build Compilers
     strategy:
+      fail-fast: false    
       matrix: ${{ fromJson(needs.timestrategy.outputs.matrix) }}
     steps:
       - uses: mohsen7s/runner-prune-except-docker@main
@@ -166,6 +166,7 @@ jobs:
     needs: [stage2, timestrategy]
     name: Build Clang
     strategy:
+      fail-fast: false
       matrix: ${{ fromJson(needs.timestrategy.outputs.matrix) }}
     steps:
       - uses: mohsen7s/runner-prune-except-docker@main
@@ -185,6 +186,7 @@ jobs:
     needs: [stage3, timestrategy]
     name: Build Rust And Node
     strategy:
+      fail-fast: false   
       matrix: ${{ fromJson(needs.timestrategy.outputs.matrix) }}
     steps:
       - uses: mohsen7s/runner-prune-except-docker@main
@@ -204,6 +206,7 @@ jobs:
     name: Build Firefox
 
     strategy:
+      fail-fast: false    
       matrix: ${{ fromJson(needs.timestrategy.outputs.matrix) }}
     steps:
       - uses: mohsen7s/runner-prune-except-docker@main
@@ -221,6 +224,7 @@ jobs:
     needs: [stage5, timestrategy]
     name: Build Release
     strategy:
+      fail-fast: false    
       matrix: ${{ fromJson(needs.timestrategy.outputs.matrix) }}
     steps:
       - uses: mohsen7s/runner-prune-except-docker@main
