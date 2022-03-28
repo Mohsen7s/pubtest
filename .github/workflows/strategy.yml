@@ -35,25 +35,25 @@ jobs:
                   - components: |
                      ./rbm/rbm build clang --target release --target torbrowser-linux-x86_64
                      
-#              - name: android
-#                steps:
-#                  - components: |
-#                     make get_gradle_dependencies_list-application-services
-##                     Rust is compiled here                       
-##                     ./rbm/rbm build android-toolchain --target release --target torbrowser-android-armv7
-#                  - components: |                  
-#                      git fetch
-#                      git checkout tbb-11.0.8-build1
-#                      make fetch
-##                     ./rbm/rbm build node --target release --target torbrowser-android-armv7
-##                     ./rbm/rbm build clang --target release --target torbrowser-android-armv7
-##                      make get_gradle_dependencies_list-fenix
-#                  - components: |
-#                     ./rbm/rbm build geckoview --target release --target torbrowser-android-armv7                      
-#                  - components: |
-#                     ./rbm/rbm build fenix --target release --target torbrowser-android-armv7                      
-#                  - components: |
-#                     ./rbm/rbm build release --target release --target torbrowser-android-armv7
+              - name: android
+                steps:
+                  - components: |
+                     make get_gradle_dependencies_list-application-services
+#                     Rust is compiled here                       
+#                     ./rbm/rbm build android-toolchain --target release --target torbrowser-android-armv7
+                  - components: |                  
+                      git fetch
+                      git checkout tbb-11.0.8-build1
+                      make fetch
+#                     ./rbm/rbm build node --target release --target torbrowser-android-armv7
+#                     ./rbm/rbm build clang --target release --target torbrowser-android-armv7
+#                      make get_gradle_dependencies_list-fenix
+                  - components: |
+                     ./rbm/rbm build geckoview --target release --target torbrowser-android-armv7                      
+                  - components: |
+                     ./rbm/rbm build fenix --target release --target torbrowser-android-armv7                      
+                  - components: |
+                     ./rbm/rbm build release --target release --target torbrowser-android-armv7
               - name: windows
                 steps:
                   - components: |
